@@ -1,0 +1,146 @@
+<link href='https://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="./views/articles/table.css"/>
+<link rel="stylesheet" href="./views/articles/yearnote.css"/>
+
+<div ng-cloak>
+  <md-tabs  md-tabs-fix md-dynamic-height="" md-center-tabs="true" md-border-bottom md-autoselect md-stretch-tabs>
+    <md-tab ng-repeat="date in artCtrl.dateArray">
+      <md-tab-label>
+        <div style="color:#4D754D">{{date}}</div>
+      </md-tab-label>
+          
+      <md-tab-body>
+        <div layout="column" layout-align="center center">
+          <div layout-margin>
+            <md-input-container>
+              <label><md-icon md-svg-src="../views/components/ic_search_black_48px.svg" class="lock_outline" style="overflow=hide;"></md-icon>Filter search</label>
+              <input ng-model="search.$">
+            </md-input-container>
+          </div>
+          <div layout="row" class="table-container" flex-gt-lg="75" flex="50">
+            <div layout="column" flex>
+               <div id="table-header" layout="row" flex layout-align="center center">
+                <div flex>Namn</div>
+                <div flex><div class="noteFont" ng-if='article.Argang != "";' flex>Årgång</div></div>
+                <div flex>Nytt pris</div>
+                <div flex hide-mg hide-lg>Tidigare pris</div>
+                <div hide-mg hide-lg flex>Land</div>
+                <div flex>Varugrupp</div>
+                <div hide-mg hide-lg flex>Varnummer</div>              
+                <div hide-mg hide-lg flex>Alkoholhalt</div>
+                <div hide-mg hide-lg flex>Förpackning</div>
+                <div flex><font color="red"><b>Prissänkt i procent</b></font></div>
+                <div flex>Link</div>
+              </div>
+            
+            
+            <!--
+            <div class="table_head" layouty="row" flex>
+              <div id="name" scope="col">Namn</div>
+              <div id="cost" scope="col">Nytt pris</div>
+              <div id="old" scope="col">Tidigare pris</div>
+              <div id="count" show hide-md scope="col">Land</div>
+              <div id="type" scope="col">Varugrupp</div>
+              
+              <div id="perc" show hide-md scope="col">Alkoholhalt</div>
+              <div id="bott" show hide-md scope="col">Förpackning</div>
+              <div id="date" show hide-md scope="col">Datum</div>
+              <div id="reduc" scope="col"><font color="red"><b>Prissänkt i procent</b></font></div>
+              <div id="link" scope="col" >Link</div>
+            </div>
+            -->
+            <div class="nth-year">
+              <md-virtual-repeat-container id="vertical-container">
+                <div  md-virtual-repeat="article in artCtrl.articleList[date] | filter:search | orderBy: '-PrissanktProcent'" layout="row" flex>
+
+                 <div class="table-row" layout="row" flex layout-align="center center">
+                    <div class="repeated-item" flex>{{article.Namn}} {{article.Namn2}}</div> 
+                    <div class="repeated-item" flex><div class="note" ng-if='article.Argang != "";'><p>{{article.Argang}}</p></div></div>
+                    <div class="repeated-item" flex>{{article.NyPris}}</div>
+                    <div class="repeated-item" hide-mg hide-lg flex>{{article.GammaltPris}} kr</div>
+                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Ursprunglandnamn}}</div>
+                    <div class="repeated-item" flex>{{article.Varugrupp}}</div>
+                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Varnummer}}</div>
+                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Alkoholhalt}}</div>
+                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Forpackning}}</div>
+                    <div class="repeated-item" flex>{{article.PrissanktProcent}}%</div>
+                    <div class="repeated-item" flex>
+                      <md-button aria-label="Use Android" ng-click="artCtrl.openLink(article)" layout-wrap>
+                        <md-icon md-svg-src="../views/components/ic_link_black_48px.svg"></md-icon>
+                      </md-button>
+                    </div>
+                </div>
+                </div>
+              </md-virtual-repeat-container>
+              </div>
+            </div>
+            </div>
+              <!--
+              <div md-virtual-repeat="article in artCtrl.articleList[date] | filter:search | orderBy: '-PrissanktProcent'">
+                   {{article.Namn}}
+                
+                <div>{{article.Namn}}<span show hide-gt-sm>{{article.Namn2}} {{article.Argang}}</span></div>
+                <div id="cost">{{article.NyPris}} kr</div>
+                <div id="old">{{article.GammaltPris}} kr</div>
+                <div id="count" show hide-md>{{article.Ursprunglandnamn}}</div>
+                <div id="type">{{article.Varugrupp}}</div>
+                <div id="id" show hide-md>{{article.Varnummer}}</div>
+                <div id="perc" show hide-md>{{article.Alkoholhalt}}</div>
+                <div id="bott" show hide-md>{{article.Forpackning}}</div>
+                <div id="date" show hide-md>{{article.PrissanktDatum}}</div>
+                <div id="reduc">{{article.PrissanktProcent}}%</div>
+                <div><md-button style="size:20%;"  aria-label="Use Android" ng-click="artCtrl.openLink(article)">
+                      <md-icon md-svg-src="../views/components/ic_link_black_48px.svg" class="lock_outline" style="overflow=hide;"></md-icon>
+                    </md-button>
+                </div>
+              </div>-->
+
+        
+          </div>
+        </div>
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
+</div>
+
+<!--class                <div class="table-container" layout="row" flex>
+                  
+                  <table id="newspaper-b" md-virtual-repeat-container ng-style="artCtrl.listStyle">
+                    <thead>
+                    	<tr>
+                      	<th id="name" scope="col">Namn</th>
+                        <th id="cost" scope="col">Nytt pris</th>
+                        <th id="old" scope="col">Tidigare pris</th>
+                        <th id="count" show hide-md scope="col">Land</th>
+                        <th id="type" scope="col">Varugrupp</th>
+
+                        <th id="perc" show hide-md scope="col">Alkoholhalt</th>
+                        <th id="bott" show hide-md scope="col">Förpackning</th>
+                        <th id="date" show hide-md scope="col">Datum</th>
+                        <th id="reduc" scope="col"><font color="red"><b>Prissänkt i procent</b></font></th>
+                        <th id="link" scope="col" >Link</th>
+                      </tr>
+                    </thead>
+
+                    <tbody layout-fill>
+                      	<tr md-virtual-repeat="article in artCtrl.articleList[date] | filter:search | orderBy: '-PrissanktProcent'">
+                        	<td id="name">{{article.Namn}}<span show hide-gt-sm>{{article.Namn2}} {{article.Argang}}</span></td>
+                        	<td id="cost">{{article.NyPris}} kr</td>
+                        	<td id="old">{{article.GammaltPris}} kr</td>
+                          <td id="count" show hide-md>{{article.Ursprunglandnamn}}</td>
+                          <td id="type">{{article.Varugrupp}}</td>
+                          <td id="id" show hide-md>{{article.Varnummer}}</td>
+                          <td id="perc" show hide-md>{{article.Alkoholhalt}}</td>
+                          <td id="bott" show hide-md>{{article.Forpackning}}</td>
+                          <td id="date" show hide-md>{{article.PrissanktDatum}}</td>
+                          <td id="reduc">{{article.PrissanktProcent}}%</td>
+                          <td><md-button style="size:20%;"  aria-label="Use Android" ng-click="artCtrl.openLink(article)">
+                                <md-icon md-svg-src="../views/components/ic_link_black_48px.svg" class="lock_outline" style="overflow=hide;"></md-icon>
+                              </md-button>
+                          </td>
+
+                        </tr>
+                        
+                    </tbody>
+                  </table>
+          -->

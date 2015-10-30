@@ -1,0 +1,59 @@
+
+body { 
+    font: 12px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+    background-image: url(./components/bg3.jpg); 
+
+    height: 100%;
+  
+}
+  
+/*
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+  */  
+
+
+
+.transborder{
+  	background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
+  -moz-border-radius: 111px 10px 10px 10px;
+  -webkit-border-radius: 111px 10px 10px 10px;
+  border: 20px solid rgba(0,0,0,0.3);
+	border-radius: 0px 0px 0px 100px;
+	padding: 30px;
+	text-align: center;
+
+  -webkit-box-shadow: 35px 35px 22px 3px rgba(0,0,0,0.71);
+  -moz-box-shadow: 35px 35px 22px 3px rgba(0,0,0,0.71);
+  box-shadow: 15px 15px 9px 1.5px rgba(0,0,0,0.91);
+}
+
+.xtoolbar {
+	background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
+  -moz-border-radius: 111px 10px 10px 10px;
+  -webkit-border-radius: 111px 10px 10px 10px;
+  border: 10px solid rgba(0,0,0,0.3);
+	border-radius: 55px 10px 0px 0px;
+  height:120px;
+	text-align: center;
+}
+.xtoolbar .title{
+  padding-left: 50px;
+}
+
+[ng-cloak].splash {
+    display: block !important;
+}
+.splash {
+    background-color: #428bca;
+    display: none;
+}
+
+md-tabs md-ink-bar{
+  background:green;
+}
+
+md-toolbar:not(.md-menu-toolbar) md-icon {
+  color: rgb(255, 255, 255) !important;
+}

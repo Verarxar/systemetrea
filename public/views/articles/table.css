@@ -1,0 +1,45 @@
+
+.table-container{
+	width:100%;
+}
+
+#vertical-container {
+  min-height: 392px;
+  min-width: 400px;
+
+}
+
+.table-row{
+  background-color: #fff;	
+  border-bottom: 1px solid #ddd;
+  font-size: 12px;
+}
+.table-row.even{
+  background-color: #eee;	
+}
+
+.repeated-item {
+	
+	font-weight: normal;
+	font-size: 12px;
+}
+
+
+#table-header{
+	
+	padding: 7px 1px 1px 10px;
+	font-weight: normal;
+	font-size: 12px;
+	color: #039;
+	border-bottom: 1px dashed #69c;
+}
+
+md-input-container,
+ md-input-container .md-placeholder{
+ 	font-size:22px;
+ 	font-family: 'Charcoal';
+ 	width:295px;
+ 	margin-bottom: 5px;
+ 	
+ 	
+}

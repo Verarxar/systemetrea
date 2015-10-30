@@ -1,0 +1,56 @@
+<div ng-cloak layout="column" layout-align="center center">
+
+	<div ng-show="vm.userSaved">
+		<md-icon md-svg-src="../views/components/ic_done_all_black_24px.svg" class="lock_outline"></md-icon>
+	</div>
+	
+
+
+			<div ng-show="!vm.userSaved" layout="column"> <!-- //ANIMATIONG TIME: https://scotch.io/tutorials/animating-angular-apps-ngshow-and-nghide 
+			<input ng-model="vm.percentage" flex-gt-md="100" type="Number" min="5" max="99">-->
+				<p class="md-subhead">När en artikels nya prislapp är på högst <b>{{vm.maxPrice}}</b> kr, <br> </p>
+
+				<div layout="row" >
+					<div layout layout-fill>
+						<div flex layout-align="end center">
+							<h2 class="md-raised md-primary">5</h2> 
+						</div>
+							<md-slider flex="70"  aria-label="red" id="red-slider" min="5" max="{{vm.topCap}}" ng-model="vm.maxPrice"></md-slider>
+						<div flex layout-align="start center" >
+							<h2 class="md-raised md-primary">{{vm.topCap}}</h2>
+						</div>
+					</div>
+				</div>
+
+				<section layout-gt-sm="row" layout-sm="column" layout-align="center center">
+					<md-button class="md-raised" ng-show="!vm.decreaseBlock" class="md-primary" ng-click="vm.decreaseMax()">Scale down slider</md-button>
+					<md-button class="md-raised" ng-show="!vm.increaseBlock" class="md-primary" ng-click="vm.increaseMax()">Scale up slider</md-button>
+				</section>
+				
+				<div md-theme="docs-dark" layout="row" layout-align="space-around">
+					<p class="md-subhead"><br><br>efter att dess pris har blivit reducerat med åtminstone <b>{{vm.percentage}}</b>% ...</p>
+				</div>
+				<div layout="row" layout-align="center center">
+				<md-input-container>
+					<label><md-icon md-font-set="regular-font">%</md-icon></label>
+				  <md-select ng-model="vm.percentage" placeholder="drop down" style="min-width: 200px;">
+				    <md-option ng-value="perc" ng-repeat="perc in vm.percentageList">{{ perc }}</md-option>
+				  </md-select>
+				</md-input-container>				
+				{{vm.percentage.$valid}}
+				</div>
+				
+				<font color="red" ng-show="vm.error">{{vm.message}}</font>
+				<div layout="column" layout-align="center center">
+					<div layout="row" layout-align="center center">
+						<md-button class="md-raised md-warn" ng-disabled="vm.serverPinging" ng-click="vm.refreshPage()">(Lämna sidan)</md-button>
+						<md-button class="md-raised md-primary" ng-disabled="vm.serverPinging" ng-click="vm.formValidation()">Maila mig!</md-button>
+					</div>
+					<md-content></md-content>
+				</div>
+			</div>
+
+
+
+</div>
+

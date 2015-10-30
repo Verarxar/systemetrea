@@ -1,0 +1,94 @@
+/*
+a {
+  -moz-animation-duration: 400ms;
+  -moz-animation-name: blink;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+  
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  color: red;
+  font-size: 20px;
+  animation-duration: 400ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  
+  /////COPY
+  .blink_me {
+  color: red;
+  font-size: 18px;
+  height: 200px;
+  width: 200px;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-name: toggle;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: toggle;
+  -moz-animation-duration: 5s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  animation-name: toggle;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+  
+}
+*/
+.blink_me {
+  color: red;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 18px;
+  height: 200px;
+  width: 200px;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: toggle;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  -moz-animation-name: toggle;
+  -moz-animation-duration: 3s;
+  -moz-animation-direction: alternate;
+  -moz-animation-iteration-count: infinite;
+  animation-name: toggle;
+  animation-duration: 3s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes toggle {
+         from {
+            opacity: 0;
+         }
+     50% {
+            opacity: 1;
+         }
+     to {
+            visibility:visible;
+      }
+ }
+@-webkit-keyframes toggle {
+         from {
+            opacity: 0;
+         }
+     50% {
+            opacity: 1;
+         }
+     to {
+            visibility:visible;
+      }
+ }
+ 
+ @-moz-keyframes blink {
+         from {
+            opacity: 0;
+         }
+     50% {
+            opacity: 1;
+         }
+     to {
+            visibility:visible;
+      }
+ }

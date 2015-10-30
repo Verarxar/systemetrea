@@ -1,0 +1,54 @@
+
+
+<!-- layout-fill :  forces the layout element to fill its PARENT container. -->
+
+<md-grid-list md-cols="4" md-gutter="1em" md-row-height="16:9">
+	<md-grid-tile class="grid-border" md-rowspan="3" md-colspan="1">
+		<!--<md-grid-tile-footer><h2>#1: 3r, 1c</h2></md-grid-tile-footer>-->
+	</md-grid-tile>
+
+	<md-grid-tile md-rowspan="2" md-colspan="2">
+				<div class="container" layout="column" layout-align="center center">
+					<form ng-submit="vm.checkCaptcha(loginForm.$valid)" name="loginForm" novalidate>
+
+						<md-input-container>
+							<label class="md-title"><img class="png-icon" src="./views/components/account_icon.png" style="width: 24px; height: 24px;"> Email</label> 
+							<input required type="email" ng-model="vm.email" minlength="10" maxlength="40"  ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" name="uEmail"/>
+
+						</md-input-container>
+						    <div ng-show="loginForm.$submitted">
+								<div ng-messages="loginForm.uEmail.$error" style="color:yellow" role="alert">
+									<div ng-message-exp="['minlength', 'maxlength']">Now your email is just weird. Normal size pls, srsly.</div>
+									<div ng-message="required">Ok...</div>
+									<div ng-message="pattern">This is not a valid email...</div>
+									
+								</div>
+						    </div>
+
+					<br>
+						<ng-switch on="vm.selection">
+						    <div 	class="animate-switch"
+						    		ng-show="!vm.noDB"
+						    		id="g-recaptcha"
+						    		ng-switch-when="captcha"
+						            vc-recaptcha
+									theme="dark"
+						            key="vm.public.key"
+						            on-create="vm.setWidgetId(widgetId)"
+						            on-success="vm.setResponse(response)"
+						            on-expire="vm.cbExpiration()"
+						    ></div>
+						    <div class="animate-switch" ng-switch-when="button" >
+				    			<md-button type="submit" class="md-raised md-primary" ng-show="!vm.noDB"> Proceed </md-button>
+				    		</div>
+						</ng-switch>
+				
+					</form>
+					<a ng-show="vm.noDB" class="blink_me">No connection with the database. <br> The end is neigh.</a>
+				</div>
+		<!--<md-grid-tile-footer><h2>#3: 1r, 1c</h2></md-grid-tile-footer>-->
+	</md-grid-tile>
+</md-grid-list>	
+
+<link rel="stylesheet" href="./views/login/login.css"/>
+<link rel="stylesheet" href="./views/login/blink.css"/>

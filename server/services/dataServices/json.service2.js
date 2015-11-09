@@ -1,11 +1,14 @@
 var fs = require('fs');
-var JSON_URL = './server/services/dataServices/data/db.json';
 //var xml2object = require('xml2object');
 var XmlStream = require('xml-stream');
 var Artikel = require('./../../models/artikel').Artikel;
 var async = require('async');
+var date;
 
-
+/***********************
+*   No longer used...  *
+/***********************    
+*/
 exports.convert = function(XML_URL, next) {
     var artiklar = [];
     var artikelStr = ({
@@ -34,51 +37,58 @@ exports.convert = function(XML_URL, next) {
         Sortiment: "",
         Ekologisk: "", 
         Koscher: "",
-        RavarorBeskrivning: ""
+        RavarorBeskrivning: "",
+        Slut: false
     });
     var counter = 0;
     var stream = fs.createReadStream('./server/services/dataServices/data/' + XML_URL);
-
+    var duplicates = 0;
     var parser = new XmlStream(stream);
     console.log("Scanning: " + XML_URL);
-
-
+    parser.on('endElement: skapad-tid', function(obj) {
+        date = new Date(obj['$text']);
+        console.log("obj is: ", obj);
+        console.log("obj['$text'] is: ", obj['$text']);
+        console.log("date is: ", date);
+    }); 
+    
+    
     parser.on('endElement: artikel', function(obj) {
 
-       insertValues(obj, function(err, callback){
-           if(err){
-               console.log(err);
-           }
-       });
+        insertValues(obj, function(callback) {} );
         var artikel = new Artikel(artikelStr);
         artiklar.push(artikel);
 
         counter = (counter + 1);
-        if (counter % 1000 == 0 ) {
+        if (counter % 100 == 0 ) {
+            parser.pause();
             async.each(artiklar, onInsert, function(err){
                 if(err){
                     console.log("err in async: ", err);
-                }else{
-                    console.log("Stored ", artiklar.length + " articles");
+                }
+                if(counter % 2000 === 0){
+                    console.log(counter / 200 + "%");
                 }
                 artiklar.length = 0;
+                parser.resume();
             });
         }
     });
+
+            
     // Bind to the file end event to tell when the file is done being streamed
     parser.on('endElement: artiklar', function() {
         
-        if ( counter % 1000 != 0 ) {
+
             async.each(artiklar, onInsert, function(err){
                 artiklar.length = 0;
                 if(err){
                     console.log("err in async: ", err);
                 }
                 console.log("Stored ", counter + " articles");
+                console.log( "I'm finished now. Duplicates found: ", duplicates);
+                next(null);                
             });
-        }
-        console.log( "I'm finished now");
-        next(null);
     });
     
     function insertValues(jsonObj, callback){
@@ -108,10 +118,11 @@ exports.convert = function(XML_URL, next) {
         artikelStr.Ekologisk = jsonObj.Ekologisk||"";
         artikelStr.Koscher = jsonObj.Koscher||"";
         artikelStr.RavarorBeskrivning = jsonObj.RavarorBeskrivning||"";
+        artikelStr.lastFound = date;
         callback(null);
 
     }
-    //You probably have to rewrite this to something like the following: 
+    //I probably have to rewrite this to something like the following: 
     /*
     Artikel.findOneAndUpdate({ Varnummer: Varnummer, timestamp: { $gte: startOfToday } }, 
     {Varnummer: Varnummer, Namn: Namn, Namn2: Namn2, timestamp: Date.now()},
@@ -125,11 +136,17 @@ exports.convert = function(XML_URL, next) {
     var onInsert = function(obj, callback){
     //http://javascriptplayground.com/blog/2013/06/think-async/
         obj.save(function(err){
-            if(err){
-              return callback(err);
+            if(err.code === 11000){
+                duplicates++;
             }
+            else if(err){
+                console.log("big error in  json.service2, on insert!");
+                console.log(err);
+                return callback(err);
+            }
+
+            callback();         
         });
-        callback(null);
     };
 };
 

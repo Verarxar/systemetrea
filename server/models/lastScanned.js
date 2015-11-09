@@ -1,3 +1,9 @@
+/******************
+   No longer used
+ ******************
+*/
+
+/*
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -14,3 +20,4 @@ var Scan = mongoose.model('Scan', scanSchema, collectionName);
 module.exports = {
     Scan: Scan
 };
+*/

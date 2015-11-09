@@ -10,6 +10,7 @@
         var service = {
             addUser: addUser,
             getUser: getUser,
+            getLastDate: getLastDate,
             checkCaptcha: checkCaptcha
         };
         return service;
@@ -48,6 +49,24 @@
                 console.log(error('getUserFailed.service Failed: ' + error.data));
             }
         }
+
+        function getLastDate(){
+            return $http({
+                url: '/articles/getLastDate/',
+                method: 'GET',
+            }).then(getDateComplete)
+              .catch(getDateFailed);
+
+            function getDateComplete(response) {
+                console.log("getDateComplete.service response: ", response);
+                return response.data;
+            }
+
+            function getDateFailed(error) {
+                console.log(error('getDateFailed.service Failed: ' + error.data));
+            }
+        }
+
 
         function checkCaptcha(post_data){
             return $http({

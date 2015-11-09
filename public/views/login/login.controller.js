@@ -25,10 +25,10 @@
             }else if(!formValid){
                 
             }else if(vm.response && formValid && !vm.noDB){
-                console.log("post data is: ", post_data);
+                //console.log("post data is: ", post_data);
                 dataservice.checkCaptcha(angular.toJson(post_data))
                     .then(function(data){
-                        console.log("logging data that should be invalid-input-response ", data, " type of", typeof data, " and for the heck of it, data.body: ", data.body);
+                        //console.log("logging data that should be invalid-input-response ", data, " type of", typeof data, " and for the heck of it, data.body: ", data.body);
                         if(data == "invalid-input-response"){
                             vm.selection = 'captcha';
                         }else{
@@ -43,7 +43,7 @@
                         vm.response = null;
                         userdataservice.setCaptcha(false);
                         vm.noDB = true;
-                        console.log("in reason", reason);
+                        //console.log("in reason", reason);
                     })
                     .catch(function(err){
                         
@@ -56,21 +56,21 @@
             console.log("LOGIN.CONTROLLER -> signIn, data: ", post_data);
             dataservice.getUser(post_data)
                 .then(function(data){
-                    console.log(typeof data);
+                    //console.log(typeof data);
                     if(data){
-                        console.log("what does data contain then?: ", data);
+                        
                         userdataservice.setUser(data);    
 
                     }else{
                         userdataservice.setEmail(post_data.email);
                     }
-                    console.log("logging data in login.ctrl .then after getUser call: ", userdataservice.getUser());
+                    //console.log("logging data in login.ctrl .then after getUser call: ", userdataservice.getUser());
                     $location.url('/home');
                     cbExpiration();
                     
                 },
                 function(reason){
-                    console.log("in reason", reason);
+                    //console.log("in reason", reason);
                 })
                 .catch(function(err){
                     
@@ -90,7 +90,7 @@
         };
 
         function setResponse (response) {
-            console.info('Response: ', response);
+            //console.info('Response: ', response);
             vm.response = response;
             vm.selection = 'button';
             post_data = {
@@ -100,12 +100,12 @@
         }
         
         function setWidgetId(widgetId) {
-            console.info('Created widget ID: %s', widgetId);
+            //console.info('Created widget ID: %s', widgetId);
             vm.widgetId = widgetId;
         }
         
         function cbExpiration() {
-            console.info('Captcha expired. Resetting response object');
+            //console.info('Captcha expired. Resetting response object');
             vm.response = null;
             //vm.selection = 'captcha';
         }        

@@ -24,6 +24,31 @@
 	font-size: 12px;
 }
 
+.sold-out-container{
+  position: relative;
+  top: -29px;
+  
+}
+
+.sold-out{
+  content:url(./sold-out.png);
+  transform: scale(0.4);
+
+
+}
+
+#sold-out-wrap{
+  top: -50px;
+  left: 0px;
+  position: absolute;
+  z-index: 1;
+}
+
+#year-wrap{
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
 
 #table-header{
 	
@@ -43,3 +68,4 @@ md-input-container,
  	
  	
 }
+

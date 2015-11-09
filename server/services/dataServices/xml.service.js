@@ -1,15 +1,13 @@
 var fs = require('fs');
 var url = require('url');
 var http = require('http');
-
-
+var XmlStream = require('xml-stream');
+var FILE_NAME = 'sortimentfilen.xml';
 exports.getXml = function(next) {
 
-    //      var XML_URL = 'http://www.w3schools.com/xml/note.xml';
-    //      var FILE_URL = 'http://www.systembolaget.se/api/assortment/products/xml';
     var XML_URL = 'http://www.systembolaget.se/api/assortment/products/xml';
     var DOWNLOAD_DIR = './server/services/dataServices/data';
-    var FILE_NAME = 'sortimentfilen.xml';
+    
     var logstatus = "";
     
     var options = {
@@ -22,7 +20,7 @@ exports.getXml = function(next) {
     console.log("\nDownload path: " + DOWNLOAD_DIR + "/" + FILE_NAME);
     console.log("Connecting to: " + options.host + options.path);
     console.log("downloading... \n");
-    //var FILE_NAME = url.parse(xml_url).pathname.split('/').pop();
+    
     var file = fs.createWriteStream(DOWNLOAD_DIR + "/" + FILE_NAME);
     
 
@@ -45,4 +43,24 @@ exports.getXml = function(next) {
 
 
 
+};
+
+exports.renameXml = function(next) {
+        var stream = fs.createReadStream('./server/services/dataServices/data/' + FILE_NAME);
+        var parser = new XmlStream(stream);
+        var date;
+        parser.on('endElement: skapad-tid', function(obj) {
+            date = new Date(obj['$text']);
+            var newFileName = "sortimentfilen" + "_" + date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2) + ".xml";
+            console.log("obj is: ", obj);
+            console.log("obj['$text'] is: ", obj['$text']);
+            console.log("date is: ", date);
+            fs.rename('./server/services/dataServices/data/' + FILE_NAME, './server/services/dataServices/data/' + newFileName, function(err) {
+                if ( err ) {
+                    console.log("@xml.service.js: in err, fs.rename", err);
+                    return next(err);
+                }
+                next(null, newFileName);
+            });
+        }); 
 };

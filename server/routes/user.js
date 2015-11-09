@@ -78,6 +78,9 @@ router.post('/register', function(req, res, next){
 
 
 var artikelDB = require('../services/dataServices/artikel.db.service');
+/*
+*  Side project: Below lists a type of article as a list that can be copy pasted into excel (for example).
+*/
 router.get('/martin', function(req, res, next){
     var presentation = "";
     artikelDB.getRom(function(err, data){
@@ -92,16 +95,8 @@ router.get('/martin', function(req, res, next){
             return 1
             return 0 //default return value (no sorting)
         })
-        /*
-        Object.keys(data)
-            .sort()
-            .forEach(function(v, i){
-                presentation += (v, data[v]);
-            });
-            
-        &#160;&#160;&#160;&#160;&#160;
-*/
-        presentation = "Till Martin <3<3<3<3 <br><br><style>table, th, td {border: 1px solid black;border-spacing: 0.5rem;text-align: left;}col {display: table-column;}</style><table><tr><th>Namn</th><th>Prisinklmoms</th><th>Land</th><th>Artikelnummer</th><th>Alkoholhalt</th></tr>"
+
+        presentation = "<br><br><style>table, th, td {border: 1px solid black;border-spacing: 0.5rem;text-align: left;}col {display: table-column;}</style><table><tr><th>Namn</th><th>Prisinklmoms</th><th>Land</th><th>Artikelnummer</th><th>Alkoholhalt</th></tr>"
         for(var i = 0; i< data.length; i++){
             presentation += "<tr><th>" + data[i].Namn + "&#160;," + data[i].Namn2 + "</th><th>" + data[i].Prisinklmoms + "</th><th>" + data[i].Ursprunglandnamn + "</th><th>" + data[i].Varnummer + "</th><th>" + data[i].Alkoholhalt +"</th></tr>";
         }

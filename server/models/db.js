@@ -5,7 +5,7 @@ var dbURI = config.database;
 
 // Bring Mongoose into the app
 var mongoose = require( 'mongoose' );
-
+//
 // Create the database connection
 try {
   mongoose.connect(dbURI);
@@ -37,4 +37,3 @@ process.on('SIGINT', function() {
   });
 });
 
-require('./lastScanned').Scan;

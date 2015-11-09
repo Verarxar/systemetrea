@@ -33,14 +33,17 @@
             var redirectWindow = window.open("http://" + article.URL, '_blank');
             redirectWindow.location;
         }
+        // Below is some terrible code in terms of time complexity - it's a temporary thing.
         //Tue May 27 2014 06:56:06
         //"Sat Sep 26 2015 00:00:00"
         function pushToDateArray(obj){
             var dataTable = [];
             var tmpArr = [];
             for(var i in obj){
+                console.log(i);
                 var date = new Date(i).toString();
                 tmpArr.push(date);
+                console.log(date);
             }
             for(var i = 0; i<tmpArr.length; i++){
                 dataTable[i] = new Array(0);
@@ -56,7 +59,7 @@
             for(var i = 0; i<tmpsize; i++){
                 tmpArr[i] = new Date(dataTable[i][0]).toDateString();
             }
-            console.log(obj[tmpArr[0]]);
+            
             return tmpArr;
         }
         

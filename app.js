@@ -14,6 +14,8 @@ var articles     = require('./server/routes/articles');
 var errorHandler = require('./server/errorHandler');
 var db 			 = require('./server/models/db');
 var fs 			 = require('fs');
+var schedule	 = require('node-schedule');
+var automated	 = require('./server/services/dataServices/automated.service');
 
 // Middlewares \\ 
 	app.use(bodyParser.urlencoded({extended: true}));
@@ -27,21 +29,35 @@ var fs 			 = require('fs');
 	app.use(errorHandler);
 	var ip;
 	var header_ip;
+
+
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = 0;
+
+var j = schedule.scheduleJob(rule, function(){
+	automated.run(function(err, data){
+		if(err){
+			console.log("error?: ", err);
+		}
+		console.log("Automated process might have passed successfully\n", data);
+		
+	});
+
+});
+
+
 // middleware to use for all requests
 	var mrcurious = function(req, res, next){
-
-				console.log(req.body);
-
-
 		ip = req.connection.remoteAddress;
 		header_ip = req.headers['x-forwarded-for'];
 		console.log(" @: ", new Date());
 		console.log(" ip: ", ip);
 		console.log(" if Proxy: ", header_ip);
-		fs.appendFile("./log.txt", new Date() + "\r\n" + "ip: " + ip + "\r\n" + "x-forwarded-for: " + header_ip + "\r\n \r\n", function(err) {
-	    if(err) {
-	        return console.log(err);
-	    }
+		fs.appendFile("./log.txt", new Date() + "\r\n" + "ip: " + ip 
+		+ "\r\n" + "x-forwarded-for: " + header_ip + "\r\n \r\n", function(err) {
+		    if(err) {
+		        return console.log(err);
+		    }
 			console.log("The file was saved!");
 		});
 		next();

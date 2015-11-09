@@ -6,6 +6,7 @@ var deliveryService = require('../services/dataServices/delivery.service');
 var downloaded = false;
 var apistreamer = require('../services/dataServices/api.streamer.service');
 var artikelDB = require('../services/dataServices/artikel.db.service');
+var automated	 = require('../services/dataServices/automated.service');
 
 router.get('/goxml', function(req, res, next){
     if(!downloaded){
@@ -20,28 +21,47 @@ router.get('/goxml', function(req, res, next){
     }
 });
 
-// Scans XML file and pushes content into the Databsae. 
-// Warning: No logic, just pushes stuff right in there. Use when databse is empty or when new articles has been release, or old one removed, when you're drunk or when the daily life simply needs to be spiced up.
-router.get('/convert', function(req, res, next){
-    console.log("Helo let's convert, k");
-    jsonservice.convert('sortimentfilen.xml',function(err){
+router.get('/getfiledate', function(req, res, next){
+    automated.getfiledates(function(err){
         if(err){
-            console.log(err);
-            res.send(err);
+            return next(err);
         }
-        
-        res.send("Database fetched & conerted successfully");
+        res.send("done");
     });
+    
+});
+router.get('/update', function(req, res, next){
+    artikelDB.updateDatabase(function(err, data){
+        if(err){
+            return next(err);
+        }
+        res.json(data);
+    });
+    
+});
+
+// Scans XML file and pushes content into the Databsae. 
+// Warning: No logic, just pushes stuff right in there. 
+// Use when databse is empty or when new articles has been release, 
+// or old one removed or when the daily life simply needs to be spiced up.
+router.get('/insertall', function(req, res, next){
+    automated.run_all(function(err, nbrOfFiles){
+        if(err){
+            return res.json(err);
+        }
+        res.send("Inserting " + nbrOfFiles + " files");
+    });
+    
                 
 });
 
 //Compares content of sortimentfilen.xml with the databse. 
 // 
-router.get('/compare', function(req, res, next){
+router.get('/compare/:file', function(req, res, next){
     var vm = {
         message: "Articles: "
     };
-    apistreamer.beginScan(function(err, data){
+    apistreamer.beginScan(req.params.file, function(err, data){
         console.log("returned to routes.tests");
         if(err){
             vm.message = {
@@ -52,24 +72,14 @@ router.get('/compare', function(req, res, next){
             
             return res.status(500).json(vm);
         }
-        vm.message += ", " + data;
+        vm.message = "The following articles were lowered in price:\n";
+        vm.data = JSON.stringify(data);
+        
         res.json(vm);
     });
 });
 
-var test = require('../tests/unit.testing');
-
-router.get('/testrun', function(req, res, next){
-    
-    test.run(function(err, data){
-        if(err){
-            return res.status(500).json({error:'failed to check DB'});
-        }
-        res.json(data);
-    });
-
-});
-
+/*
 router.get('/gogetmod', function(req, res, next){
     
     test.fetchUsers(function(err, data){
@@ -86,17 +96,5 @@ router.get('/gogetmod', function(req, res, next){
     });
 
 });
-
-router.get('/getOld', function(req, res, next){
-    
-    artikelDB.updateDatabase(function(err, data){
-        if(err){
-            return res.status(500).json({error:err});
-        }
-
-        res.json(data);
-    });
-
-});
-
+*/
 module.exports = router;

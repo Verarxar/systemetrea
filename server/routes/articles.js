@@ -10,5 +10,13 @@ router.get('/getArticles', function(req, res, next){
         res.json(data);
     });
 });
-
+router.get('/getLastDate', function(req, res, next){
+    artikelDB.getLastDate(function(err, data){
+        if(err){
+            return res.status(500).json({error: err});
+        }
+        console.log(data);
+        res.json(data);
+    });
+});
 module.exports = router;

@@ -65,7 +65,7 @@
             }
             switch(article.Forpackning){
                 case "Flaska": {
-                    console.log()
+                    
                     if(volymiml == 375){
                         bottletypegroup = "&bottletypegroup=Halvflaskor"; break;    
                     }if(volymiml == 750){

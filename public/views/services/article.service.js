@@ -32,8 +32,10 @@
         
         function sortArticles(article){
             var sortedList = {};
+            var count = 0;
             for(var i = 0; i < article.length; i++){
                 var date = new Date(article[i].Prishistorik[0].timestamp).toDateString();
+
                 var tmpList = {
                     "Namn": article[i].Namn,
                     "Namn2": article[i].Namn2,
@@ -48,6 +50,7 @@
                     "Forpackning": article[i].Forpackning,
                     "Volymiml": article[i].Volymiml,
                     "Argang": article[i].Argang,
+                    "Slut": article[i].Slut,
                     "URL": ""
                 };
                 tmpList.URL = urlservice.generateLink(tmpList);

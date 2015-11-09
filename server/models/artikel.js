@@ -28,6 +28,7 @@ var artikelSchema = new Schema({
     Sortiment: String,
     Ekologisk: String,
     Koscher: String,
+    Slut: false,
     RavarorBeskrivning: String,
     created: {type: Date, default: Date.now},
     lastFound: {type: Date, default: Date.now}

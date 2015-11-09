@@ -24,6 +24,7 @@
         vm.shutDown = false;
         vm.selectedIndex = 1;
         oldUser(vm.forTesting);
+        vm.userFound = true;
         */
         /* FOR REAL PRODUCTION BUSINESS, USE THIS
         vm.user = userdataservice.getUser();
@@ -50,9 +51,9 @@
             }
         });
          */////////////  %%%%¤¤¤¤¤¤¤¤¤##############¤¤¤¤¤¤¤¤¤%%%%%%%%%%%%%
-        
         vm.user = userdataservice.getUser();
-
+        vm.scannedDate = getLastDate();
+        //Date format library
         $scope.$watch('vm.user', function(current, original){
             console.log("vm.user: ", vm.user);
             console.log("current: ", current, " current.captcha: ", current.captcha);
@@ -200,6 +201,21 @@
         function savedCheck(){
             vm.userSaved = false;
         }
+        
+        function getLastDate(){
+            dataservice.getLastDate()
+                .then(function(data){
+                    vm.scannedDate = data;
+                },
+                function(reason){
+                    console.log(reason);
+                    vm.message = "unable to fetch date. Reload the page or something.";
+                })
+                .catch(function(err){
+                    console.log(err);
+                    vm.message = "Some sort of error happened, noone knows why but it looks like this: ", err;
+                });
+        }        
     } 
 
 }(this.angular));

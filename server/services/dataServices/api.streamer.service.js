@@ -2,17 +2,17 @@ var fs = require('fs');
 var artikelDB = require('./artikel.db.service');
 var XmlStream = require('xml-stream');
 var async = require('async');
+var date = "";
 
-exports.beginScan = function(next) {
-    //var write_URL = './server/services/dataServices/data/' + 'db.json';
-    //var writer = fs.createWriteStream('../server/data/' + 'db.json',{flags: 'a'});
-    var stream = fs.createReadStream('./server/services/dataServices/data/' + 'sortimentfilen.xml');
+exports.beginScan = function(file, next) {
+    var stream = fs.createReadStream('./server/services/dataServices/data/' + file);
     var artiklar = [];
-    var pushNotifications = 0;
+
     var arr = [];
     var counter = 0;
     var artikelStr = {};
-    /*
+    var arraypos = 0;
+
     var artikelStr = ({
         nr: "",
         Artikelid: "",
@@ -40,11 +40,19 @@ exports.beginScan = function(next) {
         Ekologisk: "", 
         Koscher: "",
         RavarorBeskrivning: "",
-        lastFound: new Date()
+        Slut: false,
+        
     });
-*/
-    var parser = new XmlStream(stream);
     
+    var parser = new XmlStream(stream);
+    parser.on('endElement: skapad-tid', function(obj) {
+        date = new Date(obj['$text']);
+        console.log("obj is: ", obj);
+        console.log("obj['$text'] is: ", obj['$text']);
+        console.log("date is: ", date);
+        
+
+    }); 
     
     parser.on('endElement: artikel', function(obj) {
         
@@ -55,7 +63,7 @@ exports.beginScan = function(next) {
         artikelStr.Namn = obj["Namn"]||"";
         artikelStr.Namn2 = obj["Namn2"]||"";
         artikelStr.Prisinklmoms = obj["Prisinklmoms"]||""; 
-        artikelStr["Prishistorik"] = {timestamp: new Date(), pris:obj["Prisinklmoms"]||""};
+        artikelStr["Prishistorik"] = {timestamp: date, pris:obj["Prisinklmoms"]||""};
         artikelStr.Volymiml = obj["Volymiml"]||"";
         artikelStr.PrisPerLiter = obj["PrisPerLiter"]||"";
         artikelStr.Saljstart = obj["Saljstart"]||"";
@@ -74,66 +82,61 @@ exports.beginScan = function(next) {
         artikelStr.Ekologisk = obj["Ekologisk"]||"";
         artikelStr.Koscher = obj["Koscher"]||"";
         artikelStr.RavarorBeskrivning = obj["RavarorBeskrivning"]||"";
+        artikelStr.lastFound = date;
+        artiklar.push(JSON.parse(JSON.stringify(artikelStr)));
         
-        
-        
-        
-        var newObj = JSON.parse(JSON.stringify(artikelStr));
-
-        artiklar.push(newObj);
         counter = (counter + 1);
    
         if (counter % 100 == 0 ) {
-            console.log("sending stuff", counter);
+  
+            
             parser.pause();
             async.each(artiklar, onInsert, function(err){
-                parser.resume();
-                artiklar.length = 0;
                 if(err){
                     console.log("err in async '.object': ", err);
                 }
+                artiklar.length = 0;
+                parser.resume();
+                
+                
             });
         }
 
     });
     
     parser.on('endElement: artiklar', function(element){
-
-        if ( counter % 100 != 0 ) {
-            console.log("sending stuff", counter);
+        console.log("sending last stuff", counter);
+        if (!(counter % 100 == 0)) {
             async.each(artiklar, onInsert, function(err){
                 artiklar.length = 0;
                 if(err){
                     console.log("err in async '.end': ", err);
                     
                 }
+                console.log('end of xml-file in api.streamer');
+                console.log(arr);
+                return next(null, arr);
             });
-            
+        }else{
+            console.log("why on earth are you in here?");
         }
-        console.log('end of xml-file in api.streamer');
-        console.log(arr);
-        return next(null, arr);
     });
     
     var onInsert = function(obj, callback){
-
+        arraypos++;
+        if(arraypos%2000 == 0){ console.log(arraypos/200 + "%");}
         artikelDB.comparePrices(obj, (function(err, data){
-            if(err && err != "next"){
+            if(err && err.localeCompare("next") != 0){
                 console.log("logging err in onInsert: ", err);
                 return callback(err);
             }
             if(data){
-                //console.log("type of Data inside .on('object'): ", typeof data);
-                //console.log("@.on('obj'), data: ", JSON.parse(JSON.stringify(data)));
                 arr.push(JSON.parse(JSON.stringify(data)));
             }
             callback(null);
-        }));         
-    };
-    
-
+        }));   
         
-    //stream.pipe(parser.saxStream); 
+    };
     
 };
 

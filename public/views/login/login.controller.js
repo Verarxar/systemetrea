@@ -53,7 +53,6 @@
         }
         
         function signIn(){
-            console.log("LOGIN.CONTROLLER -> signIn, data: ", post_data);
             dataservice.getUser(post_data)
                 .then(function(data){
                     //console.log(typeof data);

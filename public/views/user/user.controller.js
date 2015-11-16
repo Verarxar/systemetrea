@@ -17,7 +17,7 @@
         var vm = this;
         /* FOR TESTING, USE THIS
         vm.forTesting = {
-            "email": "mailtoper@gmail",
+            "email": "mt@aabbcc.xx",
             "percentage": 25,
             "maxPrice": 500
         };

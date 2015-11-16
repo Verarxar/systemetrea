@@ -21,17 +21,17 @@
                 .catch(addUserFailed);
     
             function addUserComplete(response) {
-                console.log("addUser response: ", response.data);
+                //console.log("addUser response: ", response.data);
                 return response.data;
             }
     
             function addUserFailed(error) {
-                console.log(error('JSON Failed for addUser.' + error.data));
+                //console.log(error('JSON Failed for addUser.' + error.data));
             }
         }
         
         function getUser(post_data){
-            console.log("loggign user in data.service, getUser: ", post_data);
+            //console.log("loggign user in data.service, getUser: ", post_data);
             return $http({
                 url: '/api/getUser/'+post_data.email,
                 method: 'GET',
@@ -40,7 +40,7 @@
               .catch(getUserFailed);
 
             function getUserComplete(response) {
-                console.log("getUserComplete.service response: ", response);
+                //console.log("getUserComplete.service response: ", response);
                 
                 return response.data;
             }
@@ -58,7 +58,7 @@
               .catch(getDateFailed);
 
             function getDateComplete(response) {
-                console.log("getDateComplete.service response: ", response);
+                //console.log("getDateComplete.service response: ", response);
                 return response.data;
             }
 
@@ -78,12 +78,12 @@
               .catch(checkCaptchaFailed);
 
             function checkCaptchaComplete(response) {
-                console.log("checkCaptchaComplete: ", response.data);
+                //console.log("checkCaptchaComplete: ", response.data);
                 return response.data;
             }
     
             function checkCaptchaFailed(error) {
-                console.log(error('checkCaptchaFailed.service Failed: ' + error.data));
+                //console.log(error('checkCaptchaFailed.service Failed: ' + error.data));
                 return error.data;
             }
             

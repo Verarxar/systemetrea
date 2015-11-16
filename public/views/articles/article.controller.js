@@ -40,10 +40,10 @@
             var dataTable = [];
             var tmpArr = [];
             for(var i in obj){
-                console.log(i);
+                //console.log(i);
                 var date = new Date(i).toString();
                 tmpArr.push(date);
-                console.log(date);
+                //console.log(date);
             }
             for(var i = 0; i<tmpArr.length; i++){
                 dataTable[i] = new Array(0);

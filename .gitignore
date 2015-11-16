@@ -2,3 +2,4 @@
 node_modules/
 /public/lib
 /server/services/dataServices/data/
+config.js

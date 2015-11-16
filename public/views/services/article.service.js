@@ -32,7 +32,6 @@
         
         function sortArticles(article){
             var sortedList = {};
-            var count = 0;
             for(var i = 0; i < article.length; i++){
                 var date = new Date(article[i].Prishistorik[0].timestamp).toDateString();
 

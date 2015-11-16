@@ -176,7 +176,6 @@ exports.getLastDate = function(next){
             console.log(err);
             return next(err);
         }if(doc){
-            console.log(doc);
             return next(null, doc.lastFound);
         }
     });

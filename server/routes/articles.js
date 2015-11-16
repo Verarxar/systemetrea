@@ -15,7 +15,7 @@ router.get('/getLastDate', function(req, res, next){
         if(err){
             return res.status(500).json({error: err});
         }
-        console.log(data);
+        console.log(JSON.stringify(data).lastFound);
         res.json(data);
     });
 });

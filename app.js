@@ -32,7 +32,9 @@ var automated	 = require('./server/services/dataServices/automated.service');
 
 
 var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = 0;
+rule.minute = 40;
+rule.hour = 13;
+
 
 var j = schedule.scheduleJob(rule, function(){
 	automated.run(function(err, data){

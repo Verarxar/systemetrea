@@ -32,8 +32,8 @@ var automated	 = require('./server/services/dataServices/automated.service');
 
 
 var rule = new schedule.RecurrenceRule();
-rule.minute = 40;
-rule.hour = 13;
+rule.minute = 0;
+rule.hour = 14;
 
 
 var j = schedule.scheduleJob(rule, function(){

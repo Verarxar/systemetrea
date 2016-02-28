@@ -2,7 +2,7 @@
 'use strict';
 
 angular
-    .module('app', ['ngRoute','ngMaterial','vcRecaptcha', 'directiveModule','ngAria', 'ngMessages','angular-loading-bar','underscore','angularMoment'])
+    .module('app', ['ngRoute','ngMaterial','vcRecaptcha', 'directiveModule','ngAria', 'ngMessages','angular-loading-bar','underscore','angularMoment','ui.grid','ui.grid.resizeColumns'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
     }])

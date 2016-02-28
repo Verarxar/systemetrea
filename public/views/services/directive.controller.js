@@ -21,7 +21,7 @@
                   restrict: 'E',
                   controller: 'ArticleController',
                   controllerAs: 'artCtrl',
-                  templateUrl: "./views/articles/article-tabs.html",
+                  templateUrl: "./views/articles/article-tabs.html"
                 };
             return directive;
         }

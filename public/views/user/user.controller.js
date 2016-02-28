@@ -54,27 +54,15 @@
         vm.user = userdataservice.getUser();
         vm.scannedDate = getLastDate();
         //Date format library
-        $scope.$watch('vm.user', function(current, original){
-            console.log("vm.user: ", vm.user);
-            console.log("current: ", current, " current.captcha: ", current.captcha);
-            if(current.captcha == null || current.captcha == ""){
-                vm.shutDown = true;
-                $location.url('/');
-            }else{
-                if(current.maxPrice != "" && (typeof current.maxPrice != "undefined")){
-                    vm.shutDown = false;
-                    vm.userFound = true;
-                    vm.selectedIndex = 1;
-                    oldUser(vm.user);
-                    generateNumbers();
-                }else{
-                    vm.shutDown = false;
-                    vm.selectedIndex = 0;
-                    newUser(vm.user);
-                    generateNumbers();
-                }   
-            }
-        });
+        vm.forTesting = {
+            "email": "mt@aabbcc.xx",
+            "percentage": 25,
+            "maxPrice": 500
+        };
+        vm.shutDown = false;
+        vm.selectedIndex = 1;
+        oldUser(vm.forTesting);
+        vm.userFound = true;
         //Function declarations
         vm.checkMax = checkMax;
         vm.decreaseMax = decreaseMax;

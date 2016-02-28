@@ -1,76 +1,38 @@
-<link href='https://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="./views/articles/table.css"/>
-<link rel="stylesheet" href="./views/articles/yearnote.css"/>
-
-<div ng-cloak>
-  <md-tabs  md-tabs-fix md-dynamic-height="" md-center-tabs="true" md-border-bottom md-autoselect md-stretch-tabs>
-    <md-tab ng-repeat="date in artCtrl.dateArray">
-      <md-tab-label>
-        <div style="color:#4D754D">{{date}}</div>
-      </md-tab-label>
+<md-content>
+    
+    <div layout="column" layout-align="center center">
+        <span class="date-box" layout-margin>
+            <div layout="row">
+                <span ng-repeat="tab in artCtrl.dateArray">
+                    <md-button class="md-raised" ng-click="artCtrl.swapData($index)">{{tab}}</md-button>
+                </span>
+            </div>
+            <h2 class="md-title">{{artCtrl.selectedDate}}</h2>
+        </span>
           
-      <md-tab-body>
-        <div layout="column" layout-align="center center">
-          <div layout-margin>
-            <md-input-container>
-              <label><md-icon md-svg-src="../views/components/ic_search_black_48px.svg" class="lock_outline" style="overflow=hide;"></md-icon>Filter search</label>
-              <input ng-model="search.$">
-            </md-input-container>
-          </div>
-          <div layout="row" class="table-container" flex-gt-lg="75" flex="50">
-            <div layout="column" flex>
-               <div id="table-header" layout="row" flex layout-align="center center">
-                <div flex>Namn</div>
-                <div flex><div class="noteFont" ng-if='article.Argang != "";' flex>Årgång</div></div>
-                <div flex>Nytt pris</div>
-                <div flex hide-mg hide-lg>Tidigare pris</div>
-                <div hide-mg hide-lg flex>Land</div>
-                <div flex>Varugrupp</div>
-                <div hide-mg hide-lg flex>Varnummer</div>
-                <div hide-mg hide-lg flex>Alkoholhalt</div>
-                <div hide-mg hide-lg flex>Förpackning</div>
-                <div flex><font color="red"><b>Prissänkt i procent</b></font></div>
-                <div flex>Link</div>
-              </div>
-
-            <div class="nth-year">
-              <md-virtual-repeat-container id="vertical-container">
-                <div  md-virtual-repeat="article in artCtrl.articleList[date] | filter:search | orderBy: '-PrissanktProcent'" layout="row" flex>
-
-                  <div class="table-row" layout="row" flex layout-align="center center">
-                    <div class="repeated-item" flex>{{article.Namn}} {{article.Namn2}}</div>
-
-                    <div class="sold-out-container" flex>
-                      <div id="year-wrap" flex layout-fill>
-                        <div class="repeated-item"><div class="note" ng-if='article.Argang != "";'><p>{{article.Argang}}</p></div></div>
-                      </div>
-                      <div id="sold-out-wrap" ng-show="article.Slut">
-                        <div class="sold-out"></div>
-                      </div>                      
-                    </div>
-
-                    <div class="repeated-item" flex>{{article.NyPris}}</div>
-                    <div class="repeated-item" hide-mg hide-lg flex>{{article.GammaltPris}} kr</div>
-                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Ursprunglandnamn}}</div>
-                    <div class="repeated-item" flex>{{article.Varugrupp}}</div>
-                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Varnummer}}</div>
-                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Alkoholhalt}}</div>
-                    <div class="repeated-item" hide-mg hide-lg flex>{{article.Forpackning}}</div>
-                    <div class="repeated-item" flex>{{article.PrissanktProcent}}%</div>
-                    <div class="repeated-item" flex>
-                      <md-button aria-label="Use Android" ng-click="artCtrl.openLink(article)" layout-wrap>
-                        <md-icon md-svg-src="../views/components/ic_link_black_48px.svg"></md-icon>
-                      </md-button>
-                    </div>
-                </div>
-                </div>
-              </md-virtual-repeat-container>
-              </div>
-            </div>
-            </div>
-          </div>
+    <br/>
+    <br/>
+    <div style="display:table; height:100%; width:100%">
+        <div style="display:table-row; height:100%; width:100%">
+            <div ui-grid="artCtrl.gridOptions" style="display:table-cell; height:90%; width:90%" ui-grid-selection ui-grid-resize-columns></div>
         </div>
-      </md-tab-body>
-    </md-tab>
-  </md-tabs>
-</div>
+    </div>
+</div> 
+
+
+</md-content>
+<!--
+    <md-tabs md-center-tabs="true" md-border-bottom md-autoselect md-stretch-tabs md-dynamic-height>
+        <md-tab ng-repeat="articles in artCtrl.list">
+            <md-tab-label>
+                <div style="color:#4D754D">{{articles.date}}</div>
+            </md-tab-label>
+
+            <md-tab-body flex>
+                
+                
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+-->

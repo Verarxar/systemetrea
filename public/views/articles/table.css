@@ -1,71 +1,30 @@
-
-.table-container{
-	width:100%;
+.date-box{
+  margin: 0 auto;
+  background-color: white;
+  padding: 12px;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.25);     
+}
+.page {
+  margin: 0 auto;
+  background-color: white;
+  padding: 24px;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.25); 
+    
 }
 
-#vertical-container {
-  min-height: 392px;
-  min-width: 400px;
+h2{
+    padding: 5px;
+    border-bottom: 1px solid green;
 
-}
-
-.table-row{
-  background-color: #fff;	
-  border-bottom: 1px solid #ddd;
-  font-size: 12px;
-}
-.table-row.even{
-  background-color: #eee;	
-}
-
-.repeated-item {
-	
-	font-weight: normal;
-	font-size: 12px;
-}
-
-.sold-out-container{
-  position: relative;
-  top: -29px;
-  
 }
 
 .sold-out{
-  content:url(./sold-out.png);
-  transform: scale(0.4);
-
-
-}
-
-#sold-out-wrap{
-  top: -50px;
-  left: 0px;
   position: absolute;
   z-index: 1;
 }
-
-#year-wrap{
-  top: 0px;
-  left: 0px;
-  position: absolute;
-}
-
-#table-header{
-	
-	padding: 7px 1px 1px 10px;
-	font-weight: normal;
-	font-size: 12px;
-	color: #039;
-	border-bottom: 1px dashed #69c;
-}
-
-md-input-container,
- md-input-container .md-placeholder{
- 	font-size:22px;
- 	font-family: 'Charcoal';
- 	width:295px;
- 	margin-bottom: 5px;
- 	
- 	
+.sold-out-container{
+  position: relative; 
+  left: 0; 
+  top: 0;
 }
 

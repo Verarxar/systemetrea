@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="./views/articles/table.css"/>
-<md-content>
+
     
     <div layout="column" layout-align="center center">
         <span class="date-box" layout-margin>
@@ -10,18 +10,17 @@
             </div>
             <h2 class="md-title">{{artCtrl.selectedDate}}</h2>
         </span>
-          
-    <br/>
-    <br/>
-    <div style="display:table; height:100%; width:100%">
-        <div style="display:table-row; height:100%; width:100%">
-            <div ui-grid="artCtrl.gridOptions" style="display:table-cell; height:90%; width:90%" ui-grid-selection ui-grid-resize-columns></div>
+        <br/>
+        <br/>
+        <div style="display:table; height:100%; width:100%">
+            <div style="display:table-row; height:100%; width:100%">
+                <div ui-grid="artCtrl.gridOptions" style="display:table-cell; height:90%; width:90%" ui-grid-selection ui-grid-resize-columns></div>
+            </div>
         </div>
-    </div>
-</div> 
+    </div> 
 
 
-</md-content>
+
 <!--
     <md-tabs md-center-tabs="true" md-border-bottom md-autoselect md-stretch-tabs md-dynamic-height>
         <md-tab ng-repeat="articles in artCtrl.list">

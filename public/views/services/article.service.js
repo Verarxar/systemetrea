@@ -128,7 +128,7 @@
                         displayName: 'Tidigare pris',
 
                         field: 'GammaltPris',
-                        cellTemplate: '<div class="ui-grid-cell-contents" hide-mg hide-lg flex><div id="sold-out-wrap" ng-show="article.Slut"><div class="sold-out"></div></div><div hide-mg hide-lg>{{ row.entity.GammaltPris }}</div></div>'
+                        cellTemplate: '<div class="ui-grid-cell-contents">{{ row.entity.GammaltPris }}</div>'
                     },
                     {
                         displayName: 'Land',
@@ -144,19 +144,19 @@
                         displayName: 'Varnummer',
 
                         field: 'Varnummer',
-                        cellTemplate: '<div class="ui-grid-cell-contents" hide-mg hide-lg flex>{{ row.entity.Varnummer }}</div>'
+                        cellTemplate: '<div class="ui-grid-cell-contents">{{ row.entity.Varnummer }}</div>'
                     },
                     {
                         displayName: 'Alkoholhalt',
 
                         field: 'Alkoholhalt',
-                        cellTemplate: '<div class="ui-grid-cell-contents" hide-mg hide-lg flex>{{ row.entity.Alkoholhalt }}</div>'
+                        cellTemplate: '<div class="ui-grid-cell-contents">{{ row.entity.Alkoholhalt }}</div>'
                     },
                     {
                         displayName: 'Förpackning',
 
                         field: 'Förpackning',
-                        cellTemplate: '<div class="ui-grid-cell-contents" hide-mg hide-lg flex>{{ row.entity.Forpackning }}</div>'
+                        cellTemplate: '<div class="ui-grid-cell-contents">{{ row.entity.Forpackning }}</div>'
                     },
                     {
                         displayName: 'Prissänkt i procent',
@@ -166,7 +166,7 @@
                             priority: 0,
                             direction: uiGridConstants.DESC,
                         },
-                        cellTemplate: '<div class="ui-grid-cell-contents" flex style="color:red;">{{ row.entity.PrissanktProcent }}</div>'
+                        cellTemplate: '<div class="ui-grid-cell-contents" style="color:red;">{{ row.entity.PrissanktProcent }}</div>'
                     },{
                         displayName: 'Länk',
 

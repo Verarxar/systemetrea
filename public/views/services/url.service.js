@@ -67,30 +67,30 @@
                 case "Flaska": {
                     
                     if(volymiml == 375){
-                        bottletypegroup = "&bottletypegroup=Halvflaskor"; break;    
+                        bottletypegroup = "&bottletypegroup=Halvflaska"; break;    
                     }if(volymiml == 750){
-                        bottletypegroup = "&bottletypegroup=Helflaskor"; break;    
+                        bottletypegroup = "&bottletypegroup=Helflaska"; break;    
                     }else{
-                        bottletypegroup = "&bottletypegroup=flaskor"; break;
+                        bottletypegroup = "&bottletypegroup=Glasflaska"; break;
                     }
                 }
                 case "Magnum": {
                     bottletypegroup = "&bottletypegroup=Flaskor%2CStörre%20flaskor"; break;
                 }
                 case "PET-flaska": {
-                    bottletypegroup = "&bottletypegroup=Flaskor%2CPET-flaskor"; break;
+                    bottletypegroup = "&bottletypegroup=PET-flaska"; break;
                 }
                 case "Fat": {
                     bottletypegroup = "&bottletypegroup=Fat"; break;
                 }
                 case "Burk": {
-                    bottletypegroup = "&bottletypegroup=Burkar"; break;
+                    bottletypegroup = "&bottletypegroup=Burk"; break;
                 } 
                 case "Box": {
-                    bottletypegroup = "&bottletypegroup=Boxar"; break;
+                    bottletypegroup = "&bottletypegroup=Box"; break;
                 }
                 case "Papp": {
-                    bottletypegroup = "&bottletypegroup=Pappförpackningar"; break;
+                    bottletypegroup = "&bottletypegroup=Pappförpackning"; break;
                 }                   
             }
             link = URL + searchquery + subcategory + bottletypegroup;

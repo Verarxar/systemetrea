@@ -2,14 +2,25 @@
 
     
     <div layout="column" layout-align="center center">
-        <span class="date-box" layout-margin>
+            <h1 class="md-title">"Drop down"-menyn representerar artiklar för de datum då prissänkingen upptäcktes.</h1>
             <div layout="row">
-                <span ng-repeat="tab in artCtrl.dateArray">
-                    <md-button class="md-raised" ng-click="artCtrl.swapData($index)">{{tab}}</md-button>
-                </span>
+              <md-input-container>
+<ol class="nya-bs-select" ng-model="artCtrl.selected" ng-change="artCtrl.swapData(artCtrl.selected)">
+  <li nya-bs-option="date in artCtrl.dates">
+    <a>
+      {{date}}
+    </a>
+  </li>
+</ol>
+              </md-input-container>
             </div>
-            <h2 class="md-title">{{artCtrl.selectedDate}}</h2>
-        </span>
+            
+            <!--<div layout="row">-->
+            <!--    <span ng-repeat="tab in artCtrl.dateArray">-->
+            <!--        <md-button class="md-raised" ng-click="artCtrl.swapData($index)">{{tab}}</md-button>-->
+            <!--    </span>-->
+            <!--</div>-->
+            <!--<h2 class="md-title">{{artCtrl.selectedDate}}</h2>-->
         <br/>
         <br/>
         <div style="display:table; height:100%; width:100%">

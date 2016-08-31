@@ -42,7 +42,7 @@ router.get('/update', function(req, res, next){
 
 // Scans XML file and pushes content into the Databsae. 
 // Warning: No logic, just pushes stuff right in there. 
-// Use when databse is empty or when new articles has been release, 
+// Use when databse is empty or when new articles has been released, 
 // or old one removed or when the daily life simply needs to be spiced up.
 router.get('/insertall', function(req, res, next){
     automated.run_all(function(err, nbrOfFiles){
@@ -55,7 +55,7 @@ router.get('/insertall', function(req, res, next){
                 
 });
 
-//Compares content of sortimentfilen.xml with the databse. 
+//Compares content of sortimentfilen.xml with the database. 
 // 
 router.get('/compare/:file', function(req, res, next){
     var vm = {

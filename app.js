@@ -33,10 +33,10 @@ var automated	 = require('./server/services/dataServices/automated.service');
 
 var rule = new schedule.RecurrenceRule();
 rule.minute = 0;
-rule.hour = 14;
+rule.hour = 18;
 
 
-var j = schedule.scheduleJob(rule, function(){
+var j = schedule.scheduleJob('* 06 1 * *', function(){
 	automated.run(function(err, data){
 		if(err){
 			console.log("error?: ", err);

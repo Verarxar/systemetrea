@@ -8,7 +8,7 @@
 <ol class="nya-bs-select" ng-model="artCtrl.selected" ng-change="artCtrl.swapData(artCtrl.selected)">
   <li nya-bs-option="date in artCtrl.dates">
     <a>
-      {{date}}
+      {{date}}  ({{artCtrl.articles[date][0].length}})
     </a>
   </li>
 </ol>

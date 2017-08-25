@@ -1,0 +1,52 @@
+<div class="container">
+<div class="row">
+  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12" cardTitle="gg" baCardClass="traffic-panel medium-card">
+    <tree id="tree-view" [tree]="tree"></tree>
+  </ba-card>
+  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12" cardTitle="Drop Database" baCardClass="popular-app medium-card">
+    <div class="popular-app-img-container">
+      <div class="popular-app-img">
+        <button type="button" class="btn btn-danger btn-with-icon btn-lg" (click)="dropDB()"><i class="ion-nuclear"></i>Danger</button>
+        <span class="logo-text">All content will be removed - no questions asked!</span>
+      </div>
+    </div>
+    <div class="popular-app-cost row">
+      <div class="col-9">DB status</div>
+      <div class="col-3 text-right">
+        {{status}}
+      </div>
+    </div>
+  </ba-card>
+</div>
+<div class="row" *ngIf="initiated">
+  articlesData.articleCount: {{articlesData}}
+  <div class="col-md-6" *ngIf="!(articlesData.articleCount > 0)">
+    <ba-card cardTitle="Database is empty" baCardClass="with-scroll">
+      <label for="exampleSelect1">Select a file to get started</label>
+      <div class="input-group">
+        <select class="form-control with-primary-addon" id="exampleSelect1" [(ngModel)]="selectedFile">
+          <option *ngFor="let file of files" [ngValue]="file">{{file.name}}</option>
+        </select>
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-primary btn-with-icon" (click)="insertArticles()">Insert</button>
+        </div>      
+      </div>
+    </ba-card>
+  </div>
+
+  <div class="col-md-12" *ngIf="initiated && articlesData.articleCount > 0">
+    <div class="container">
+      <ba-card cardTitle="Compare prices with files" baCardClass="with-scroll">
+        <div class="form-group">
+          <label for="exampleSelect2">Select which files to insert and compare</label>
+          <select multiple class="form-control with-primary-addon" id="exampleSelect2" [(ngModel)]="selectedFile">
+            <option *ngFor="let file of files" [disabled]="file.hasBeenRun" [ngValue]="file">{{file.apiFileDate}} -- {{file.size /1000000 | number: '1.0-1'}} MB</option>
+          </select>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-primary btn-with-icon" (click)="compareArticles()">Run</button>
+          </div>
+        </div>
+      </ba-card>
+    </div>    
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<span *ngIf="condition">
+  <i class="{{baseClass}}" [ngClass]="truthyIcon"></i>
+</span>
+<span *ngIf="!condition">
+  <i class="{{baseClass}}" [ngClass]="falsyIcon"></i>
+</span>

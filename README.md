@@ -1,6 +1,6 @@
-# NgBim
+# Ng6Test
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
 
 ## Development server
 
@@ -10,14 +10,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Create .env file
+## Build
 
-The idea of the .env file is to offer an OS-independent way to add environment variables. Simply create a .env file in the project root and paste the following content:
-   ```
-   NODE_ENV=development
-   PORT=9090
-   PUBLICWEB=./dist/publicweb
-   ```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 

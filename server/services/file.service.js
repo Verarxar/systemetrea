@@ -20,6 +20,10 @@ function getXML(callback) {
    console.log("Connecting to: " + options.host + options.path);
    console.log("downloading... \n");
 
+   // Create folder if it doesn't exist
+   if (!fs.existsSync(DOWNLOAD_DIR)){
+    fs.mkdirSync(DOWNLOAD_DIR);
+   }
    const file = fs.createWriteStream(DOWNLOAD_DIR + "/" + FILE_NAME);
    const fileWriter = function(response) {
      response.on('data', function(d) {
@@ -33,7 +37,7 @@ function getXML(callback) {
      });
 
      response.on('error', function(err){
-        console.log('problem with request: ' + err.message);
+        console.log('Err while downloading XML file', FILE_NAME);
         return callback(err);
      });
   };
@@ -43,10 +47,10 @@ function getXML(callback) {
 function renameFile(callback) {
   const parser = new Parser();
   rs = fs.createReadStream(DOWNLOAD_DIR + "/" + FILE_NAME)
-  rs.on('error', function(err) { 
+  rs.on('error', function(err) {
      return callback(err);
   });
-  
+
   let attrFound = false;
   let date;
 

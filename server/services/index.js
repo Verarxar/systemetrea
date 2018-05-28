@@ -3,11 +3,11 @@ require('./mongo').connect().then((err) => {
 });
 
 module.exports = {
-    runService: require('./run.service'),
-    logService: require('./log.service.js'),
-    fileService: require('./file.service.js'),
-    launcherService: require('./launcher.service.js'),
-    schedulerService: require('./scheduler.service.js'),
-    userService: require('./user.service')
+    debugService: require('./dev-debug.service'),
+    logService: require('./log.service'),
+    fileService: require('./file.service'),
+    // launcherService: require('./launcher.service'),
+    // schedulerService: require('./scheduler.service'),
+    sortimentFilenService: require('./sortimentfilen.service')
+    // userService: require('./user.service')
   };
-  

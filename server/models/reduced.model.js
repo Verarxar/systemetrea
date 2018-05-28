@@ -6,8 +6,8 @@ const xmlFileSchema = new Schema(
   {
     name: String,
     size: Number,
-    hasBeenRun: Boolean,
     apiFileDate: { type: String, required: true, unique: true, dropDups: true },
+    articles: Array
   },
   {
     collection: 'files',

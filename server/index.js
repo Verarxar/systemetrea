@@ -28,8 +28,14 @@ const port = process.env.PORT || 9090;
 const ip = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
 // TESTS \\
-const runService = services.runService;
-runService.init();
+const debugService = services.debugService;
+debugService.compareTest((err, result) => {
+  if (err) {
+    console.log('err', err);
+  } else {
+    console.log('Init operation successfull - result', result);
+  }
+});
 
 app.use('/api', (req, res, next) => logService.mrcurious(req, res, next));
 app.use('/api', require('./routes'));
@@ -46,7 +52,7 @@ var header_ip;
 app.get('*', (req, res) => {
    res.sendFile(`index.html`, { root: publicweb });
 });
-  
+
 app.listen(port, ip, () => console.log(`API running on http://${ip}:${port}`));
-  
+
 

@@ -1,8 +1,8 @@
-const Sortimentfil = require('../models/sortimentfil.model');
+const Article = require('../models/article.model');
 const reducedInPrice = require('../models/reduced.model');
 
 function findAndCompare(newArticles, callback) {
-  Sortimentfil.findOne().then((doc) => {
+  Article.find().then((articles) => {
     const parsed = JSON.parse(JSON.stringify(doc));
     const oldArticles = parsed.articles;
     getReducedPriceList(newArticles.articles, oldArticles, (err, result) => {

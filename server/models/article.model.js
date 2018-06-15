@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var artikelSchema = new Schema({
+var articleSchema = new Schema({
     nr: {type: String, unique: true, index: true},
     Artikelid: String,
     Varnummer: String,
@@ -36,8 +36,8 @@ var artikelSchema = new Schema({
 
 var collectionName = 'artiklar'; //to prevent mongoDB to add "s" to the collection
  
-var Artikel = mongoose.model('Artikel', artikelSchema, collectionName);
+var Article = mongoose.model('Article', articleSchema, collectionName);
 
 module.exports = {
-    Artikel: Artikel
+    Article: Article
 };

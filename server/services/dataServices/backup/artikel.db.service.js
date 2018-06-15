@@ -1,4 +1,4 @@
-var Artikel = require('./../../models/artikel').Artikel;
+var Article = require('./../../models/article.model').Article;
 var async = require('async');
 var Scan = require('./../../models/lastScanned').Scan;
 var count = 0;
@@ -13,7 +13,7 @@ exports.comparePrices = function(obj, next){
 
     async.waterfall([
         function(callback){
-            Artikel.findOneAndUpdate(
+            Article.findOneAndUpdate(
                 {'nr': nr}, function(err, doc){
                 if(err){
                     console.log(err);
@@ -21,8 +21,8 @@ exports.comparePrices = function(obj, next){
                 }
                 if(!doc){
 
-                    var artikel = new Artikel(obj);
-                    artikel.save(function(err){
+                    var article = new Article(obj);
+                    article.save(function(err){
                         if(err){
                           console.log("error in !doc.save: ", err);
                           return callback(err);
@@ -37,7 +37,7 @@ exports.comparePrices = function(obj, next){
                     if(nr == 7105001){
                         console.log("HArdy nr: ", nr + "  Hardy doc.nr: ", doc.nr);
                     }
-                    Artikel.update({nr: nr }, {lastFound: date, Slut: false}, {}, function(err, obj){
+                    Article.update({nr: nr }, {lastFound: date, Slut: false}, {}, function(err, obj){
                         if(err){
                             console.log("error in 1.doc.save: ", err);
                             return new Error(err);
@@ -73,8 +73,8 @@ exports.comparePrices = function(obj, next){
                         *   Old article with "nr": (obj.nr), removed.
                         *   New article added to database. Callback "next" to skip ahead, new article means no price change.
                         */
-                        var artikel = new Artikel(obj);
-                        artikel.save(function(err){
+                        var article = new Article(obj);
+                        article.save(function(err){
                             if(err){
                               console.log("error in !doc.save: ", err);
                               return callback(err);
@@ -88,7 +88,7 @@ exports.comparePrices = function(obj, next){
 
                 }else if(!(doc.Namn == namn)){
                     console.log("But-", namn + "- does not equal-", doc.Namn + "- stored in information place");
-                    Artikel.update({nr: nr }, {Namn: namn, Namn2: namn2}, {}, function(err, obj){
+                    Article.update({nr: nr }, {Namn: namn, Namn2: namn2}, {}, function(err, obj){
                         if(err){
                             console.log("Error when attempting to update the name of an article: ", err);
                             return new Error(err);
@@ -104,7 +104,7 @@ exports.comparePrices = function(obj, next){
         },
         function(callback){
 
-            Artikel.findOne({'nr': nr, 'Prisinklmoms': {$gt:Prisinklmoms}}, function(err, doc) {
+            Article.findOne({'nr': nr, 'Prisinklmoms': {$gt:Prisinklmoms}}, function(err, doc) {
                 if(err) {
                     return callback(err);
                 }else if(typeof doc == 'undefined' || !doc){
@@ -150,7 +150,7 @@ exports.comparePrices = function(obj, next){
 
         },
         function(arg1, callback){
-            Artikel.findById(arg1["id"], function(err, doc){
+            Article.findById(arg1["id"], function(err, doc){
                 if(err){
                     return callback(err, doc);
                 }if(doc){
@@ -190,7 +190,7 @@ exports.comparePrices = function(obj, next){
 };
 
 exports.getLeastFive = function(next){
-    Artikel.find({ PrissanktProcent : { $gte : 5 }}, function(err, data){
+    Article.find({ PrissanktProcent : { $gte : 5 }}, function(err, data){
         if(err){
             return next(err);
         }
@@ -201,8 +201,8 @@ exports.getLeastFive = function(next){
 
 exports.getDateChanged = function(date, next){
 
-    // db.artiklar.count({ $and: [    { PrissanktProcent: {$gte: 5}}, { 'Prishistorik.timestamp' : {  $gte: new Date("2015-10-06")}}]})
-    Artikel.find({ $and: [    { PrissanktProcent: {$gte: 5}}, { 'Prishistorik.timestamp' : {  $gte: new Date("2015-10-06")}}]}, function(err, data){
+    // db.articles.count({ $and: [    { PrissanktProcent: {$gte: 5}}, { 'Prishistorik.timestamp' : {  $gte: new Date("2015-10-06")}}]})
+    Article.find({ $and: [    { PrissanktProcent: {$gte: 5}}, { 'Prishistorik.timestamp' : {  $gte: new Date("2015-10-06")}}]}, function(err, data){
         if(err){
             return next(err);
         }
@@ -211,7 +211,7 @@ exports.getDateChanged = function(date, next){
 };
 
 exports.getRom = function (next){
-    Artikel.find({Varugrupp: "Rom"}, function(err, data){
+    Article.find({Varugrupp: "Rom"}, function(err, data){
         if(err){
             return next(err);
         }
@@ -223,8 +223,8 @@ exports.getRom = function (next){
 exports.updateDatabase = function (next){
     var date;
     console.log("hi1");
-    //db.artiklar.find(({}).sort({ lastFound: -1 }).limit(1);
-    Artikel.findOne({},{}, { sort: { "lastFound" : -1 } }, function(err, doc){
+    //db.articles.find(({}).sort({ lastFound: -1 }).limit(1);
+    Article.findOne({},{}, { sort: { "lastFound" : -1 } }, function(err, doc){
         if(err){
             console.log("hi2");
             return next(err);
@@ -238,17 +238,17 @@ exports.updateDatabase = function (next){
             var yesterday = new Date(date.setDate(date.getDate()-2));
             //(new Date(date.getFullYear().toString() + "-" + (date.getMonth()+1).toString() + "-" + ("0" + (date.getDate()-1)).slice(-2).toString())).toISOString();
             var vm = {
-                "artiklar": []
+                "articles": []
             };
             console.log(yesterday);
 
-            Artikel.count({ 'lastFound' : {  $lte: yesterday}},  function(err, docs){
+            Article.count({ 'lastFound' : {  $lte: yesterday}},  function(err, docs){
                 if(err){
                     console.log(err);
                 }
                 console.log(docs);
             });
-            var stream = Artikel.find({'lastFound': { $lte: yesterday}}).stream();
+            var stream = Article.find({'lastFound': { $lte: yesterday}}).stream();
             stream.on("data", function(doc){
 
                 doc.update(
@@ -262,7 +262,7 @@ exports.updateDatabase = function (next){
                         return next(err);
                     }else{
 
-                        vm.artiklar.push(doc);
+                        vm.articles.push(doc);
                     }
                 });
             }).on('error', function(err){
@@ -281,7 +281,7 @@ exports.updateDatabase = function (next){
 
     /*
     console.log(dateToday);
-    Artikel.find({lastFound: {$lt: dateToday}}, function(err, docs){
+    Article.find({lastFound: {$lt: dateToday}}, function(err, docs){
         if(err){
             console.log(err);
             return next(new Error(err));
@@ -294,7 +294,7 @@ exports.updateDatabase = function (next){
         next(null, articleMap);
     });
     */
-    //Check for artikelId
+    //Check for articleId
     //If found: update values
     //else: delete object
 };

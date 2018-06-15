@@ -1,4 +1,4 @@
-var Article = require('../../models/artikel');
+var Article = require('../../models/article.model');
 var async = require('async');
 var numberOfArticlesHandled = 0;
 function comparePrices(obj, next){

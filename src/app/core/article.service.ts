@@ -6,12 +6,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Article, ReducedResponse } from './models';
 
-const api = '/api';
+const api = 'http://systemetrea.eu/api';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getArticles(): Observable<ReducedResponse[]> {
     return this.http

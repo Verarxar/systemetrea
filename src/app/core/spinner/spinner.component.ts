@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { SpinnerState, SpinnerService } from './spinner.service';
 
 @Component({
-  selector: 'ev-spinner',
+  selector: 'app-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.less']
 })
@@ -15,7 +15,7 @@ export class SpinnerComponent implements OnDestroy, OnInit {
 
   private spinnerStateChanged: Subscription;
 
-  constructor(private spinnerService: SpinnerService) {}
+  constructor(private spinnerService: SpinnerService) { }
 
   ngOnInit() {
     this.spinnerStateChanged = this.spinnerService.spinnerState

@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "debug": "node --nolazy --inspect-brk=9229 server/index.js",
-    "dev": "ng serve --proxy-config proxy.conf.json -o",
+    "dev": "ng serve -o",
     "dev-old": "concurrently --names \"NODE, CLIENT\" -c \"white.bgGreen,white.bgRed\" \"npm run watch:node\" \"npm run watch:client\"",
     "watch:node": "nodemon server/index.js",
     "watch:client": "ng serve --proxy-config proxyconfig.json -o",

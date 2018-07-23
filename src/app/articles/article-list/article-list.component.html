@@ -12,13 +12,17 @@
   </thead>
   <tbody>
     <tr *ngFor="let article of articles">
-      <td>{{article.namn}} {{article.namn2}}</td>
+      <td>
+        <a [routerLink]="['/articles', article.artikelid]">{{article.namn}} {{article.namn2}}</a>
+      </td>
       <td>{{article.nr}}</td>
       <td>{{article.varugrupp}}</td>
       <td>{{article.argang}}</td>
       <td>{{article.prisinklmoms}}</td>
       <td>{{article.prissanktProcent}}</td>
-      <td><a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}">ny flik</a></td>
+      <td>
+        <a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}">ny flik</a>
+      </td>
     </tr>
   </tbody>
 </table>

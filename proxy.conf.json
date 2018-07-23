@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": "http://systemetrea.eu",
+    "secure": false
+  },
+  "/auth": {
+    "target": "http://systemetrea.eu",
+    "secure": true
+  },
+  "/assets": {
+    "target": "http://systemetrea.eu",
+    "secure": true
+  }
+}

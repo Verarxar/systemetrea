@@ -1,0 +1,42 @@
+<div class="overlay">
+  <div class="ui-panel uk-animation-scale-down" *ngIf="!intermission; else showImage">
+    <header>
+      <div class="left logo">
+        <a><span>Systemet</span>rea</a>
+      </div>
+    </header>
+    
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <div class="subtitle">Login or register</div>
+        <input type="email" name="email" email [(ngModel)]="credentials.email" required placeholder="E-mail" />
+        <input type="password" name="password" [(ngModel)]="credentials.password" placeholder="Password" />
+        <div [hidden]="this.errorCount < 0"
+          class="uk-text-danger uk-animation-shake">{{errorMessage}}</div>
+      </div>
+
+      <footer>
+        <div class="left social-login">
+          Login with 
+          <!-- <i class="fab fa-fw fa-facebook" uk-tooltip="not implemented"></i> -->
+          <a><i class="fab fa-fw fa-google-plus" (click)="socialSignIn('google')"></i></a>
+        </div>
+        
+        <div class="right form-actions">
+          <button class="login-button" type="submit" [disabled]="!loginForm.form.valid" [class.disabled]="!loginForm.form.valid && !loginForm.form.pristine">Login</button>
+          <!-- <a type="button" class="ui-button inactive register">Register</a> -->
+        </div>
+      </footer>
+    </form>
+  </div>
+  <ng-template #showImage>
+    <div class="uk-position-center" style="text-align: center;">
+      <h1 class="uk-text-danger uk-position-cover" *ngIf="this.counter">{{counter}}</h1>
+      <img src="/assets/images/intermission.jpg">
+    </div>
+  </ng-template>
+</div>
+<!-- <button (click)="socialSignIn('facebook')">Sign in with Facebook</button> -->
+<!-- <button class="uk-button uk-button-secondary" (click)="socialSignIn('google')">
+  <i class="fab fa-fw fa-google"></i>Sign in with Google
+</button>   -->

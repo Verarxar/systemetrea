@@ -1,0 +1,45 @@
+<div class="welcome-page" *ngIf="show">
+    <div class="corner"></div>
+    <div class="corner"></div>
+    <div class="corner"></div>
+    <div class="corner"></div>
+    <div class="content">
+      <p data-shadow="WELCOME"><span>W</span><span>E</span><span>L</span><span>C</span><span>O</span><span>M</span><span>E</span></p>
+    </div>
+    <div class="right-vert-line"></div>
+    <div class="left-vert-line"></div>
+    <div class="continue" (click)="stopAnimation()">Never show this again</div>
+</div>
+<div [ngClass]="{'animation-container': show, 'container': !show}">
+  <!-- <div class="icons"> -->
+  <div class="vartically-aligned">
+    <div class="uk-card uk-card-secondary uk-card-body">
+      <app-countdown></app-countdown>
+    </div>
+    <hr>
+    <div class="uk-card uk-card-primary" *ngIf="statistics.groupCount">
+      <ngx-charts-advanced-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        label="Antal prissänkta artiklar"
+        [results]="statistics.groupCount"
+        [gradient]="gradient"
+        (select)="onSelect($event)">
+      </ngx-charts-advanced-pie-chart>
+    </div>
+    <hr>
+    <dl class="uk-description-list uk-description-list-divider">
+      <dt><h3 class="description-value">{{statistics.articlesCount}}</h3></dt>
+      <dd>Det totala antalet artiklar i databasen</dd>
+      <dt><h3 class="description-value">{{statistics.reducedCount}}</h3></dt>
+      <dd>Det totala antalet prissänkta artiklar</dd>
+      <dt><h3 class="description-value">{{statistics.totalCostReduced | currency: 'SEK'}}</h3></dt>
+      <dd>Den totala prisskillnaden av samtliga prissänkta varor, dvs, summan du hade "sparat" om du hade köpt en av varje
+        prissänkt vara (det här är extremt ointressant).
+      </dd>
+    </dl>
+  </div>
+  <!-- </div> -->
+</div>
+
+

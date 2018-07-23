@@ -1,0 +1,30 @@
+<nav class="uk-navbar-container navbar-dark" uk-navbar uk-sticky="'show-on-up: true; animation: uk-animation-slide-top; bottom: #bottom'">
+  <div class="uk-navbar-left">
+    <h3>
+      <a class="home-link" routerLink="/dashboard">SYSTEMETREA</a>
+    </h3>
+    <ul class="uk-navbar-nav">
+      <li>
+        <a routerLink="/articles">Articles</a>
+      </li>
+      <li>
+        <a routerLink="/faq">FAQ</a>
+      </li>
+      <li>
+        <a *ngIf="userProfileService.isLoggedIn()" (click)="logout()">
+          Logout
+        </a>
+      </li>
+      <li>
+        <a *ngIf="!userProfileService.isLoggedIn()" routerLink="/login">
+          Login
+        </a>
+      </li>
+      <li>
+        <a *ngIf="userProfileService.isAdmin()" routerLink="/admin">
+          Admin
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

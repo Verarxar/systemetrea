@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="vartically-aligned">
+    <main>
+      <div *ngIf="selectedDate">
+        <ng-select class="custom" [items]="dates" [(ngModel)]="selectedDate" bindLabel="label" (change)="onChange($event)">
+          <ng-template ng-label-tmp let-item="item">
+              {{item.date | date}}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index">
+            <div class="uk-card uk-card-default uk-card-body">
+              <h3 class="uk-card-title">{{item.date | date}} <span class="uk-label">{{item.count}} articles</span></h3>
+              <article>
+                <ul>
+                  <li *ngFor="let category of item.categories">
+                    {{category.name}} {{category.count}}
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+      <app-article-list *ngIf="selectedDate"
+        [articles]="selectedDate.articles"
+        [selectedArticle]="selectedArticle"
+        (selected)="onSelect($event)">
+      </app-article-list>
+    </main>
+  </div>
+</div>

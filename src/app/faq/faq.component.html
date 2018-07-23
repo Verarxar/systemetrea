@@ -1,0 +1,7 @@
+<div
+  *ngFor="let faq of faqList; let i=index; trackBy: trackById"
+  class="uk-card uk-card-hover uk-card-body"
+  [ngClass]="{'uk-card-secondary': i%2===0,'uk-card-primary': i%2===1}">
+  <h3 class="uk-card-title">{{faq.question}}</h3>
+  <p>{{faq.reply}}</p>
+</div>

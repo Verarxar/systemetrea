@@ -1,3 +1,20 @@
-<p>
-  article-detail works!
-</p>
+<div *ngIf="article">
+  <ul>
+    <li>alkoholhalt: {{article.alkoholhalt}}</li>
+    <li>årgång: {{article.argang}}</li>
+    <li>ekologisk: {{article.ekologisk ? 'ja' : 'nej'}}</li>
+    <li>förpackning: {{article.forpackning}}</li>
+    <li>namn: {{article.namn}}</li>
+    <li>namn2: {{article.namn2}}</li>
+    <li>nr: {{article.nr}}</li>
+    <li>prisPerLiter: {{article.prisPerLiter}}</li>
+    <li>pris inkl moms: {{article.prisinklmoms}}</li>
+    <li>prissänkt procent: {{article.prissanktProcent}}</li>
+    <li>producent: {{article.producent}}</li>
+    <li>provad årgång: {{article.provadargang ? article.provadargang : 'ej provad'}}</li>
+    <li>distrikt: {{article.ursprung}}</li>
+    <li>land: {{article.ursprunglandnamn}}</li>
+    <li>varugrupp: {{article.varugrupp}}</li>
+    <li>volym: {{article.volymiml}}</li>
+  </ul>
+</div>

@@ -5,8 +5,9 @@
       <th>artikelnummer</th>
       <th>kategori</th>
       <th>årgång</th>
-      <th>pris</th>
+      <th>nytt pris</th>
       <th>prissänkt %</th>
+      <th>gammalt pris</th>
       <th>länk</th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
       <td>{{article.argang}}</td>
       <td>{{article.prisinklmoms}}</td>
       <td>{{article.prissanktProcent}}</td>
+      <td>{{article.prisHistorik[0].pris}}</td>
       <td>
         <a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}">ny flik</a>
       </td>

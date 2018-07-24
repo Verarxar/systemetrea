@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from '../../core/models/article';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-detail',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-detail.component.less']
 })
 export class ArticleDetailComponent implements OnInit {
+  article: Article;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.route.data.subscribe((data: { article: Article }) => {
+      this.article = data.article;
+      console.log('article', this.article);
+    });
   }
 
 }

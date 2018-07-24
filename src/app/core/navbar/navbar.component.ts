@@ -3,7 +3,7 @@ import { UserProfileService } from '../user-profile.service';
 import { Router } from '@angular/router';
 
 class MenuItem {
-  constructor(public caption: string, public link: any[], public hide?: boolean) {}
+  constructor(public caption: string, public link: any[], public hide?: boolean) { }
 }
 
 @Component({
@@ -13,24 +13,21 @@ class MenuItem {
 })
 export class NavbarComponent implements OnInit {
   menuItems: MenuItem[];
-  isLoggedIn: boolean;
 
   constructor(private userProfileService: UserProfileService) { }
 
-  getLoginStatus(): boolean {
+  ngOnInit() {
+  }
+
+  isLoggedIn(): boolean {
     return this.userProfileService.isLoggedIn();
   }
 
-  public get isAdmin(): boolean {
+  isAdmin(): boolean {
     return this.userProfileService.isAdmin();
   }
 
   logout() {
     this.userProfileService.logout();
   }
-
-  ngOnInit() {
-    this.isLoggedIn = this.getLoginStatus();
-  }
-
 }

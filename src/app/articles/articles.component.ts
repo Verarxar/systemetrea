@@ -16,7 +16,9 @@ declare var UIkit: any;
 export class ArticlesComponent implements OnInit {
   articles: Article[];
   dates: any;
+  isBusy: boolean;
   selectedDate: any;
+  articlesData: any;
   articles$: Observable<Article[]>
   subscription: Subscription;
 
@@ -25,20 +27,31 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getArticles();
+    this.isBusy = true;
+    this.articleService.getReducedDates().subscribe((dates) => {
+      console.log('dates', dates);
+      this.dates = dates;
+      this.selectedDate = dates[0];
+      this.getArticles(this.selectedDate.date);
+    });
+    
   }
 
-  getArticles() {
-    this.spinnerService.show();
-    this.articleService.getArticles().subscribe((res: ReducedResponse[]) => {
-      this.populateDropDown(res);
-      this.spinnerService.hide();
+  getArticles(date: string) {
+    const params = { date: date };
+    this.articleService.getArticles(params).subscribe((res: any) => {
+      this.articles = res[0].articles;
+      this.populateStatistics(this.articles);
+      console.log('articles', this.articles);
+      this.isBusy = false;
     });
   }
 
   onChange(event) {
-    console.log('this.selectedDate', this.selectedDate);
-    this.articles = this.selectedDate.articles;
+    this.articles = [];
+    this.articlesData = null;
+    this.isBusy = true;
+    this.getArticles(this.selectedDate.date);
   }
 
   getTypeCount(articles) {
@@ -66,21 +79,12 @@ export class ArticlesComponent implements OnInit {
     return response;
   }
 
-  populateDropDown(reducedResponse: ReducedResponse[]) {
-    reducedResponse.forEach((reduced, index) => {
-      this.dates.push(
-        {
-          date: reduced.date,
-          count: reduced.count,
-          id: index,
-          articles: reduced.articles,
-          label: `${this.transformDate(reduced.date)} - (${reduced.count})`,
-          categories: this.getTypeCount(reduced.articles)
-        }
-      );
-      console.log('date pushed', this.dates[index]);
-    });
-    this.selectedDate = this.dates[0];
+  populateStatistics(articles: Array<Article>) {
+    this.articlesData = {
+      date: this.selectedDate.date,
+      count: this.selectedDate.count,
+      categories: this.getTypeCount(articles)
+    };
   }
 
   transformDate(date) {

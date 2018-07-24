@@ -11,17 +11,17 @@
         <a routerLink="/faq">FAQ</a>
       </li>
       <li>
-        <a *ngIf="userProfileService.isLoggedIn()" (click)="logout()">
+        <a *ngIf="isLoggedIn()" (click)="logout()">
           Logout
         </a>
       </li>
       <li>
-        <a *ngIf="!userProfileService.isLoggedIn()" routerLink="/login">
+        <a *ngIf="!isLoggedIn()" routerLink="/login">
           Login
         </a>
       </li>
       <li>
-        <a *ngIf="userProfileService.isAdmin()" routerLink="/admin">
+        <a *ngIf="isAdmin()" routerLink="/admin">
           Admin
         </a>
       </li>

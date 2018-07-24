@@ -1,6 +1,6 @@
 import { EnvironmentProperties } from './environment-properties';
 
 export const environment: EnvironmentProperties = {
-  production: true,
-  apiBase: ''
+  production: false,
+  apiBase: 'http://systemetrea.eu'
 };

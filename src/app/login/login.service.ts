@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { SpinnerService, UserProfileService } from '../core';
+import { environment } from '../../environments/environment';
 
 interface TokenResponse {
   token: string;
@@ -16,15 +17,17 @@ export interface TokenPayload {
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-
+  apiBase: string;
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService,
     private userProfileService: UserProfileService
-  ) { }
+  ) {
+    this.apiBase = environment.apiBase;
+  }
 
   login(credentials) {
-    return this.http.post('http://systemetrea.eu/api/login', credentials).pipe(
+    return this.http.post(`${this.apiBase}/api/login`, credentials).pipe(
       tap(_ => this.spinnerService.show()),
       delay(1000),
       tap(this.toggleLogState.bind(this))

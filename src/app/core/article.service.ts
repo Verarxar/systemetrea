@@ -1,25 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { throwError as observableThrowError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError as observableThrowError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 import { Article, ReducedResponse } from './models';
 
-const api = 'http://systemetrea.eu/api';
-
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
+  apiBase: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.apiBase = environment.apiBase;
+  }
 
-  getArticles(): Observable<ReducedResponse[]> {
+  getArticles(params): Observable<ReducedResponse[]> {
     return this.http
-      .get<ReducedResponse[]>(`${api}/articles`)
+      .get<ReducedResponse[]>(`${this.apiBase}/api/articles`, { params: params })
       .pipe(
         map(article => article),
         catchError(this.handleError)
       );
+  }
+
+  getArticle(id: number): Observable<Article> {
+    return this.http
+      .get<Article>(`${this.apiBase}/api/articles/${id}`);
+  }
+
+  getReducedDates() {
+    return this.http
+      .get<Article>(`${this.apiBase}/api/reduced/dates`);
+  }
+
+  getStatistics() {
+    console.log('this.apiBase: ', this.apiBase);
+    return this.http.get(`${this.apiBase}/api/statistics`);
   }
 
   private handleError(res: HttpErrorResponse) {

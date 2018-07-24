@@ -1,3 +1,9 @@
+class PriceHistoryItem {
+  id: string;
+  pris: number;
+  datum: string;
+}
+
 export class Article {
   nr: string;
   artikelid: String;
@@ -6,7 +12,7 @@ export class Article {
   namn2: String;
   prisinklmoms: Number;
   prissanktProcent: Number;
-  prisHistorik: Array<any>;
+  prisHistorik: Array<PriceHistoryItem>;
   volymiml: Number;
   prisPerLiter: Number;
   saljstart: Date;

@@ -1,14 +1,14 @@
 {
   "/api": {
-    "target": "http://systemetrea.eu",
+    "target": "http://localhost:9090",
     "secure": false
   },
   "/auth": {
-    "target": "http://systemetrea.eu",
+    "target": "http://localhost:9090",
     "secure": true
   },
   "/assets": {
-    "target": "http://systemetrea.eu",
+    "target": "http://localhost:9090",
     "secure": true
   }
 }

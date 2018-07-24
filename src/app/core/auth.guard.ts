@@ -16,21 +16,20 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private userProfileService: UserProfileService,
-    private router: Router) {}
+    private router: Router) { }
   /**
    * used to prevent unauthorized users from accessing certain routes. See docs for more info.
    */
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if (this.userProfileService.isLoggedIn()) {
-        return true;
-      }
-      this.router.navigate(['/login'], {
-        queryParams: { redirectTo: state.url }
-      });
-      
-      return false;
+    if (this.userProfileService.isLoggedIn()) {
+      return true;
+    }
+    this.router.navigate(['/login'], {
+      queryParams: { redirectTo: state.url }
+    });
+    return false;
   }
 
   /**

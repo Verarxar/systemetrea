@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ArticleService } from '../core/article.service';
 
 class Statistics {
   articlesCount: number;
@@ -9,7 +10,7 @@ class Statistics {
 
   constructor() {
     this.groupCount = [];
-    Object.assign(this, {reducedCount: 0, totalCostReduced: 0, articlesCount: 0});
+    Object.assign(this, { reducedCount: 0, totalCostReduced: 0, articlesCount: 0 });
   }
 }
 
@@ -28,7 +29,7 @@ export class DashboardComponent implements OnInit {
 
   show: boolean;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private articleService: ArticleService) {
     this.show = true;
     this.statistics = new Statistics();
   }
@@ -40,7 +41,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.show = this.getAnimationSettings();
-    this.http.get('http://systemetrea.eu/api/statistics').subscribe((stats: Statistics) => {
+
+    this.articleService.getStatistics().subscribe((stats: Statistics) => {
       this.statistics.groupCount = stats.groupCount;
       this.statistics.articlesCount = stats.articlesCount;
       this.statistics.reducedCount = stats.reducedCount;

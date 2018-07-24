@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SpinnerService, UserProfileService } from '../core';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 interface TokenResponse {
   token: string;
@@ -18,6 +19,7 @@ class Credentials {
   styleUrls: ['./admin.component.less']
 })
 export class AdminComponent implements OnInit {
+  apiBase: string;
   error: string;
   success: boolean;
   credentials: Credentials = {
@@ -32,6 +34,7 @@ export class AdminComponent implements OnInit {
     private userProfileService: UserProfileService
   ) {
     this.success = false;
+    this.apiBase = environment.apiBase;
   }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class AdminComponent implements OnInit {
 
   register() {
     this.success = false;
-    this.http.post('http://systemetrea.eu/api/register', this.credentials).pipe(
+    this.http.post(`${this.apiBase}/api/register`, this.credentials).pipe(
       tap(_ => this.spinnerService.show())).subscribe((res: TokenResponse) => {
         this.error = '';
         this.toggleLogState(res);

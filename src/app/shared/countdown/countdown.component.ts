@@ -15,7 +15,7 @@ export class CountdownComponent implements OnInit {
 
   ngOnInit() {
     // @ts-ignore
-    let dateNow: moment.Moment = moment().format();
+    const dateNow: moment.Moment = moment().format();
     const date = moment(this.getDate(dateNow)).hour(7);
     console.log('this date', dateNow);
     this.countdown = UIkit.countdown('#countdown', {
@@ -27,10 +27,10 @@ export class CountdownComponent implements OnInit {
   getDate(date) {
     const year = moment().year();
     console.log('year', year);
-    const firstQuarter: any = moment({year: year, month: 2, date: 1}).quarter(1).format();
-    const secondQuarter = moment({year: year, month: 2, date: 1}).quarter(2).format();
-    const thirdQuarter = moment({year: year, month: 2, date: 1}).quarter(3).format();
-    const fourthQuarter = moment({year: year, month: 2, date: 1}).quarter(4).format();
+    const firstQuarter: any = moment({ year: year, month: 2, date: 1 }).quarter(1).format();
+    const secondQuarter = moment({ year: year, month: 2, date: 1 }).quarter(2).format();
+    const thirdQuarter = moment({ year: year, month: 2, date: 1 }).quarter(3).format();
+    const fourthQuarter = moment({ year: year, month: 2, date: 1 }).quarter(4).format();
     if (moment(date).isBefore(firstQuarter)) {
       return firstQuarter;
     } else if (moment(date).isBefore(secondQuarter)) {

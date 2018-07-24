@@ -10,6 +10,13 @@
     <li>prisPerLiter: {{article.prisPerLiter}}</li>
     <li>pris inkl moms: {{article.prisinklmoms}}</li>
     <li>prissänkt procent: {{article.prissanktProcent}}</li>
+    <li>prishistorik:
+      <ul>
+        <li *ngFor="let reduction of article.prisHistorik">{{reduction.datum | date}}:
+          <b>{{reduction.pris}}kr</b>
+        </li>
+      </ul>
+    </li>
     <li>producent: {{article.producent}}</li>
     <li>provad årgång: {{article.provadargang ? article.provadargang : 'ej provad'}}</li>
     <li>distrikt: {{article.ursprung}}</li>

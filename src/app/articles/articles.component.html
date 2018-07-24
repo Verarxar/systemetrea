@@ -1,36 +1,32 @@
-
-<div class="container">
-  <div class="vartically-aligned">
-    <main>
-      <div *ngIf="dates">
-        <ng-select class="custom" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onChange($event)">
-          <ng-template ng-label-tmp let-item="item">
-            {{item.date | date}}
-          </ng-template>
-          <ng-template ng-option-tmp let-item="item" let-index="index">
-              {{item.date | date}} - <small>({{item.count}} articles)</small>
-          </ng-template>
-        </ng-select>
-        <ng-template [ngIf]="isBusy">
-            <div class="uk-flex uk-flex-center">
-              <div uk-spinner="ratio: 5"></div>
-            </div>
+<div class="uk-container">
+  <main>
+    <div *ngIf="dates">
+      <ng-select class="custom" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onChange($event)">
+        <ng-template ng-label-tmp let-item="item">
+          {{item.date | date}}
         </ng-template>
-        <div class="uk-card uk-card-default uk-card-body" *ngIf="articlesData">
-          <h3 class="uk-card-title">{{selectedDate.date | date}}
-            <span class="uk-label">{{selectedDate.count}} articles</span>
-          </h3>
-          <article>
-            <ul>
-              <li *ngFor="let category of articlesData.categories">
-                {{category.name}} {{category.count}}
-              </li>
-            </ul>
-          </article>
-        </div>
+        <ng-template ng-option-tmp let-item="item" let-index="index">
+          {{item.date | date}} -
+          <small>({{item.count}} articles)</small>
+        </ng-template>
+      </ng-select>
+      <div class="uk-card uk-card-default uk-card-body" *ngIf="articlesData">
+        <h3 class="uk-card-title">{{selectedDate.date | date}}
+          <span class="uk-label">{{selectedDate.count}} articles</span>
+        </h3>
+        <article>
+          <ul>
+            <li *ngFor="let category of articlesData.categories">
+              {{category.name}} {{category.count}}
+            </li>
+          </ul>
+        </article>
       </div>
-      <app-article-list *ngIf="articles" [articles]="articles" [selectedArticle]="selectedArticle" (selected)="onSelect($event)">
-      </app-article-list>
-    </main>
-  </div>
+    </div>
+    <app-article-list *ngIf="articles" [articles]="articles" [filteringDate]="this.params.date">
+    </app-article-list>
+    <div *ngIf="isBusy" class="uk-flex uk-flex-center">
+      <div uk-spinner="ratio: 3"></div>
+    </div>
+  </main>
 </div>

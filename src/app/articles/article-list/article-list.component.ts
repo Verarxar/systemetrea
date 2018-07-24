@@ -9,15 +9,21 @@ import { Article, ReducedResponse } from '../../core/models';
 })
 export class ArticleListComponent implements OnInit {
   @Input() articles: Article[];
-  @Input() selectedArticle: Article;
+  @Input() filteringDate: string;
   @Output() selected = new EventEmitter<Article>();
+  filteringTime;
 
   ngOnInit() {
-    console.log('articles in list: ', this.articles);
+    this.filteringTime = new Date(this.filteringDate).getTime();
   }
 
   byId(article: Article) {
     return article.nr;
+  }
+
+  isSoldOut(lastModified: string) {
+    const articleTime = new Date(lastModified).getTime();
+    return articleTime < this.filteringTime;
   }
 
   onSelect(article: Article) {

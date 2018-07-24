@@ -32,8 +32,8 @@ export class Article {
   koscher: String;
   slut: false;
   ravarorBeskrivning: String;
-  created: string
-  lastModified: string
+  created: string;
+  lastModified: string;
 }
 
 export class ReducedResponse {

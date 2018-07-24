@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let article of articles">
+    <tr *ngFor="let article of articles" [ngClass]="{'strikeout': isSoldOut(article.lastModified)}">
       <td>
         <a [routerLink]="['/articles', article.artikelid]">{{article.namn}} {{article.namn2}}</a>
       </td>

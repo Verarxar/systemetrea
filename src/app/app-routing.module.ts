@@ -5,7 +5,11 @@ import { FaqComponent } from './faq/faq.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  {
+    path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
+    canActivate: [AuthGuard]
+  },
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',

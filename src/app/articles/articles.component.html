@@ -1,17 +1,20 @@
 <div>
   <main>
     <div *ngIf="dates">
-      <ng-select class="date-select" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onChange($event)">
-        <ng-template ng-label-tmp let-item="item">
-          <i class="fal fa-calendar-alt"></i> {{item.date | date}}
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item" let-index="index">
-          {{item.date | date}} -
-          <small>({{item.count}} articles)</small>
-        </ng-template>
-      </ng-select>
-      <div class="uk-card uk-card-primary uk-card-body" *ngIf="articlesData">
-        <h3 class="uk-card-title">{{selectedDate.date | date}}
+
+      <div class="uk-card uk-card-small uk-card-primary uk-card-body" *ngIf="articlesData">
+        <div class="uk-float-right">
+          <ng-select class="date-select" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onChange($event)">
+            <ng-template ng-label-tmp let-item="item">
+              <i class="fal fa-calendar-alt"></i> {{item.date | date}}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+              {{item.date | date}} -
+              <small>({{item.count}} articles)</small>
+            </ng-template>
+          </ng-select>
+        </div>
+        <h3 class="uk-card-title uk-margin-remove-top">{{selectedDate.date | date}}
           <span class="uk-label">{{selectedDate.count}} articles</span>
         </h3>
         <article>

@@ -1,18 +1,5 @@
-.welcome-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: black;
-  z-index: 1;
-  //   optionally
-  animation: moveTop 2s 11s forwards;
-}
-
 .content {
   user-select: none;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +36,7 @@
     animation: backToPosition 2s 2s forwards 1 ease-in-out;
     // box-shadow: 0 20px 10px -10px transparent;
     position: relative;
-    //     strange but i like it ;o 
+    //     strange but i like it ;o
     color: transparent;
     &:hover {
       // color:red;
@@ -305,74 +292,4 @@
     }
     filter: blur(1px);
   }
-}
-
-///////////////////////////////////////////////////
-/////////////////STYLES FOR ICONS/////////////////
-//////////////////////////////////////////////////
-.container {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
-  .vartically-aligned {
-    flex-direction: column;
-  }
-  .horizontally-aligned {
-    flex-direction: row;
-  }
-}
-.container-item {
-  text-align: center;
-}
-.uk-description-list-divider {
-  padding-top: 10px;
-}
-.description-value {
-  color: rgba(255,255,255,.7);
-}
-.animation-container {
-  border-radius: 10px;
-  overflow: hidden;
-  opacity:0;
-  animation:opacity 1s 12s 1 forwards;
-}
-
-.articles {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  height: 210px;
-  padding: 1rem;
-  text-align: center;
-  font-size: 2rem;
-  cursor: pointer;
-  position: relative;
-  user-select:none;
-}
-
-
-///////////////////////////////////////////////////////
-////////////////////OBVIOUS STUFF/////////////////////
-//////////////////////////////////////////////////////
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-a:link,
-a:active,
-a:visited {
-  color: inherit;
-  text-decoration: none;
-}
-
-body {
-  height: 100vh;
-  // background: pink;
-  font-family: 'Verdana';
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

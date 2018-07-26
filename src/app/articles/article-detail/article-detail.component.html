@@ -1,5 +1,34 @@
-<div *ngIf="article">
-  <ul>
+<div class="uk-container uk-margin-top" *ngIf="article">
+
+  <ul class="uk-list">
+    <li class=""><a href="">{{article.varugrupp}}</a></li>
+    <li class="name">{{article.namn}} <small>({{article.nr}})</small></li>
+    <li class="name2">{{article.namn2}} <small>({{article.argang}})</small></li>
+    <li class="region"><a href="">{{article.ursprunglandnamn}}</a>, <span>{{article.ursprung}}</span></li>
+
+    <li class="price">{{article.prisinklmoms}}:- <small>(<i class="fas fa-caret-down"></i>{{article.prissanktProcent}})%</small></li>
+    <!--<li class="">prisPerLiter: {{article.prisPerLiter}}</li>-->
+
+    <div uk-grid>
+      <li class="norm uk-width-1-2"><span>Alkoholhalt</span><br>{{article.alkoholhalt}}</li>
+      <li class="norm uk-width-1-2"><span>Flaska</span><br>{{article.volymiml}}ml)</li>
+    </div>
+
+    <div uk-grid>
+      <li class="norm uk-width-1-2"><span>Förpackning</span><br>{{article.forpackning}}</li>
+      <li class="norm uk-width-1-2"><span>Producent</span><br>{{article.producent}}</li>
+      <li class="norm uk-width-1-2"><span>Ekologisk</span><br>{{article.ekologisk ? 'Ja' : 'Nej'}}</li>
+      <li class="norm uk-width-1-2"><span>Provad årgång:</span><br>{{article.provadargang ? article.provadargang : 'Ej provad'}}</li>
+      <li class="norm" uk-width-1-2><span>Prishistorik</span><br>
+        <ul>
+          <li *ngFor="let reduction of article.prisHistorik">
+            <i>{{reduction.datum | date}}:</i>
+            <strong> {{reduction.pris}}kr</strong>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <!--
     <li>alkoholhalt: {{article.alkoholhalt}}</li>
     <li>årgång: {{article.argang}}</li>
     <li>ekologisk: {{article.ekologisk ? 'ja' : 'nej'}}</li>
@@ -22,6 +51,6 @@
     <li>distrikt: {{article.ursprung}}</li>
     <li>land: {{article.ursprunglandnamn}}</li>
     <li>varugrupp: {{article.varugrupp}}</li>
-    <li>volym: {{article.volymiml}}</li>
+    <li>volym: {{article.volymiml}}</li>-->
   </ul>
 </div>

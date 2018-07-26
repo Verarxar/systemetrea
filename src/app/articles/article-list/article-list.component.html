@@ -1,30 +1,33 @@
-<table *ngIf="articles" class="uk-table uk-table-divider">
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>artikelnummer</th>
-      <th>kategori</th>
-      <th>årgång</th>
-      <th>nytt pris</th>
-      <th>prissänkt %</th>
-      <th>gammalt pris</th>
-      <th>länk</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let article of articles" [ngClass]="{'strikeout': isSoldOut(article.lastModified)}">
-      <td>
-        <a [routerLink]="['/articles', article.artikelid]">{{article.namn}} {{article.namn2}}</a>
-      </td>
-      <td>{{article.nr}}</td>
-      <td>{{article.varugrupp}}</td>
-      <td>{{article.argang}}</td>
-      <td>{{article.prisinklmoms}}</td>
-      <td>{{article.prissanktProcent}}</td>
-      <td>{{article.prisHistorik[0].pris}}</td>
-      <td>
-        <a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}">ny flik</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="uk-overflow-auto">
+  <table *ngIf="articles" class="uk-table uk-table-divider uk-table-small uk-table-hover">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>artikelnummer</th>
+        <th>kategori</th>
+        <th>årgång</th>
+        <th>nytt pris</th>
+        <th>prissänkt %</th>
+        <th>gammalt pris</th>
+        <th>länk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of articles" [ngClass]="{'strikeout': isSoldOut(article.lastModified)}">
+        <td>
+          <a [routerLink]="['/articles', article.artikelid]">{{article.namn}} {{article.namn2}}</a>
+        </td>
+        <td>{{article.nr}}</td>
+        <td>{{article.varugrupp}}</td>
+        <td>{{article.argang}}</td>
+        <td>{{article.prisinklmoms}}</td>
+        <td>{{article.prissanktProcent}}</td>
+        <td>{{article.prisHistorik[0].pris}}</td>
+        <td>
+          <a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}"><img class="btn-systemet" src="/assets/images/systemet-logo.png" /></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="#" uk-totop uk-scroll></a>
+</div>

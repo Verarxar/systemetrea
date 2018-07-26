@@ -30,9 +30,10 @@ body {
 table {
     font-size: .8rem;
 }
-tr:hover {
+tbody>tr:hover {
     background: #f9f9f9 !important;
 }
+
 .date-select {
     background: #f9f9f9;
     border: 1px solid #f9f9f9;
@@ -64,6 +65,24 @@ tr:hover {
             &:hover {
                 background: #eee;
             }
+        }
+    }
+}
+.uk-offcanvas-overlay::before {
+    background: rgba(0,0,0,.5)
+}
+.profile {
+    text-align: center;
+
+    .uk-offcanvas-close {
+        top: 28px;
+        right: 14px;
+    }
+    .profile-icon {
+        text-align: center;
+        padding: 30px 0;
+        .fa-user-circle {
+            font-size: 10rem;
         }
     }
 }

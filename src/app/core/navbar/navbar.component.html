@@ -1,4 +1,4 @@
-<div uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #scrollup-dropdown">
+<div *ngIf="isLoggedIn()" uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #scrollup-dropdown">
     <div class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <div>
@@ -15,11 +15,6 @@
                     <li *ngIf="isLoggedIn()">
                         <a routerLink="/faq">FAQ</a>
                     </li>
-                    <li *ngIf="isAdmin()">
-                        <a routerLink="/admin">
-                            Admin
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -29,6 +24,11 @@
                     <li *ngIf="!isLoggedIn()">
                         <a routerLink="/login" class="btn-login">
                             Login
+                        </a>
+                    </li>
+                    <li *ngIf="isAdmin()">
+                        <a routerLink="/admin">
+                            Admin
                         </a>
                     </li>
                     <li *ngIf="isLoggedIn()">
@@ -49,7 +49,11 @@
             <i class="fal fa-user-circle"></i>
         </div>
 
-        <button *ngIf="isLoggedIn()" (click)="logout()" class="uk-button uk-button-primary">
+        <div class="profile-info">
+            <h4>Per Johansson</h4>
+            <div>mailtoper@gmail.com</div>
+
+        <button *ngIf="isLoggedIn()" (click)="logout()" class="uk-button uk-button-primary uk-margin">
             Logout
         </button>
     </div>

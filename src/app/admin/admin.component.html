@@ -1,14 +1,14 @@
-<main>
+<div class="registration-wrapper">
   <fieldset class="uk-fieldset">
     <legend class="uk-legend">Registrera ny användare</legend>
     <div class="uk-margin">
-        <input class="uk-input uk-form-width-medium" type="text" [(ngModel)]="credentials.name" placeholder="användarnamn">
+        <input class="uk-input uk-form-width-large" type="text" [(ngModel)]="credentials.name" placeholder="användarnamn">
     </div>
     <div class="uk-margin">
-        <input class="uk-input uk-form-width-medium" type="email" [(ngModel)]="credentials.email" [email] placeholder="e-post">
+        <input class="uk-input uk-form-width-large" type="email" [(ngModel)]="credentials.email" [email] placeholder="e-post">
     </div>
     <div class="uk-margin">
-        <input class="uk-input uk-form-width-medium" type="password" [(ngModel)]="credentials.password" placeholder="lösenord">
+        <input class="uk-input uk-form-width-large" type="password" [(ngModel)]="credentials.password" placeholder="lösenord">
     </div>
     <button class="uk-button uk-button-primary" (click)="register()">Registrera</button><small *ngIf="success" class="uk-text-success uk-animation-fade">success!</small>
     <div *ngIf="error">
@@ -16,4 +16,4 @@
       <p class="uk-text-warning" *ngIf="error">{{error.text}}</p>
     </div>
   </fieldset>
-</main>
+</div>

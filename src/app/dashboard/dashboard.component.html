@@ -1,11 +1,22 @@
 <div [ngClass]="{'animation-container': show, 'container': !show}">
-  <div>
+  <!--<div>
     <app-countdown></app-countdown>
   </div>
-  <hr>
+  <hr>-->
   <div [hidden]="!chart">
+    <div class="uk-child-width-1-2" uk-grid>
+      <div>
+        <h2>Dags för realisation</h2>
+      </div>
+      <div>
+        <select class="uk-select">
+          <option>Rött vin</option>
+        </select>
+      </div>
+    </div>
     <canvas id="bubble-chart">{{ chart }}</canvas>
   </div>
+  <!--
   <div class="uk-card uk-card-primary" *ngIf="statistics.groupCount">
     <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" label="Antal prissänkta artiklar" [results]="statistics.groupCount">
     </ngx-charts-advanced-pie-chart>
@@ -25,5 +36,5 @@
     </dt>
     <dd>Den totala prisskillnaden av samtliga prissänkta varor, dvs, summan du hade "sparat" om du hade köpt en av varje prissänkt
       vara (det här är extremt ointressant).</dd>
-  </dl>
+  </dl>-->
 </div>

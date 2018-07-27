@@ -58,36 +58,48 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: 'this is a label',
         datasets: [
+            {
+              label: ['Nubori Crianza Edición Limitada'],
+              backgroundColor: 'rgba(255,221,50,0.2)',
+              borderColor: 'rgba(255,221,50,1)',
+              data: [
+                {
+                  x: 355,
+                  y: 149,
+                  r: 58
+                }
+              ],
+            },
           {
-            label: ['vin'],
+            label: ['il Tre Fratelli Chianti'],
             backgroundColor: 'rgba(255,221,50,0.2)',
             borderColor: 'rgba(255,221,50,1)',
             data: [
               {
-                x: 280,
-                y: 5.245,
-                r: 35
+                x: 89,
+                y: 59,
+                r: 33.7
               }
             ],
           },
           {
-            label: ['sprit'],
+            label: ['Campo Burgo Reserva'],
             backgroundColor: 'rgba(60,186,159,0.2)',
             borderColor: 'rgba(60,186,159,1)',
             data: [{
-              x: 300,
-              y: 7.526,
-              r: 10
+              x: 155,
+              y: 105,
+              r: 32.3
             }]
           },
           {
-            label: ['öl'],
+            label: ['Poggio Castelsus Rosso Toscano Organic'],
             backgroundColor: 'rgba(0,0,0,0.2)',
             borderColor: '#000',
             data: [{
-              x: 290,
-              y: 6.994,
-              r: 15
+              x: 99,
+              y: 69,
+              r: 30.3
             }]
           }
         ],
@@ -95,18 +107,18 @@ export class DashboardComponent implements OnInit {
       options: {
         title: {
           display: true,
-          text: 'prissänking per typ'
+          text: 'Dags för realisation'
         }, scales: {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'ett pris'
+              labelString: 'Nytt pris'
             }
           }],
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'ett annat pris'
+              labelString: 'Gammalt pris'
             }
           }]
         }
@@ -119,4 +131,3 @@ export class DashboardComponent implements OnInit {
     return !show;
   }
 }
-

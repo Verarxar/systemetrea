@@ -2,18 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ArticleService } from '../core/article.service';
 import { Chart } from 'chart.js';
+import { Article } from '../core/models';
 
 class Statistics {
-  articlesCount: number;
-  groupCount: any[];
-  reducedCount: number;
-  totalCostReduced: number;
-  bubbleChart;
-
-  constructor() {
-    this.groupCount = [];
-    Object.assign(this, { reducedCount: 0, totalCostReduced: 0, articlesCount: 0 });
-  }
+  articles: Article[];
+  count: number;
+  type: string;
 }
 
 @Component({
@@ -22,9 +16,11 @@ class Statistics {
   styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
-  statistics: Statistics;
+  loading = false;
+  statistics: Statistics[];
   view: any[] = [1200, 350];
-  chart = [];
+  selectedGroup: Statistics;
+  chartOptions: any;
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
@@ -33,76 +29,38 @@ export class DashboardComponent implements OnInit {
 
   constructor(private http: HttpClient, private articleService: ArticleService) {
     this.show = true;
-    this.statistics = new Statistics();
-  }
-
-  stopAnimation() {
-    this.show = false;
-    localStorage.setItem('intro', 'disable');
   }
 
   ngOnInit() {
-    this.show = this.getAnimationSettings();
-    this.chart = this.getBubbleChartSettings();
-    this.articleService.getStatistics().subscribe((stats: Statistics) => {
-      this.statistics.groupCount = stats.groupCount;
-      this.statistics.articlesCount = stats.articlesCount;
-      this.statistics.reducedCount = stats.reducedCount;
-      this.statistics.totalCostReduced = stats.totalCostReduced;
+    this.articleService.getStatistics().subscribe((statstics: Statistics[]) => {
+      this.statistics = statstics;
+      this.selectedGroup = this.statistics[0];
+      this.chartOptions = this.getBubbleChartSettings();
     });
   }
 
+  onFilterChange(value: string) {
+    const str = value.split('-')[0];
+    console.log('str', str);
+    this.loading = true;
+    this.chartOptions.data.datasets = [];
+    this.selectedGroup = this.statistics.find((obj: any) => {
+      return obj.type === str;
+    });
+
+    this.loading = false;
+    this.chartOptions = this.getBubbleChartSettings();
+    // this.chartOptions.data.labels = filter.type;
+    // this.chartOptions.data.datasets = filter.articles;
+  }
+
   getBubbleChartSettings() {
+    const datasets = this.selectedGroup.articles;
     return new Chart('bubble-chart', {
       type: 'bubble',
       data: {
-        labels: 'this is a label',
-        datasets: [
-            {
-              label: ['Nubori Crianza Edición Limitada'],
-              backgroundColor: 'rgba(255,221,50,0.2)',
-              borderColor: 'rgba(255,221,50,1)',
-              data: [
-                {
-                  x: 355,
-                  y: 149,
-                  r: 58
-                }
-              ],
-            },
-          {
-            label: ['il Tre Fratelli Chianti'],
-            backgroundColor: 'rgba(255,221,50,0.2)',
-            borderColor: 'rgba(255,221,50,1)',
-            data: [
-              {
-                x: 89,
-                y: 59,
-                r: 33.7
-              }
-            ],
-          },
-          {
-            label: ['Campo Burgo Reserva'],
-            backgroundColor: 'rgba(60,186,159,0.2)',
-            borderColor: 'rgba(60,186,159,1)',
-            data: [{
-              x: 155,
-              y: 105,
-              r: 32.3
-            }]
-          },
-          {
-            label: ['Poggio Castelsus Rosso Toscano Organic'],
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            borderColor: '#000',
-            data: [{
-              x: 99,
-              y: 69,
-              r: 30.3
-            }]
-          }
-        ],
+        labels: `${this.selectedGroup.type}`,
+        datasets: datasets,
       },
       options: {
         title: {
@@ -124,10 +82,5 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-  }
-
-  getAnimationSettings() {
-    const show = localStorage.getItem('intro');
-    return !show;
   }
 }

@@ -1,40 +1,17 @@
-<div [ngClass]="{'animation-container': show, 'container': !show}">
-  <!--<div>
-    <app-countdown></app-countdown>
-  </div>
-  <hr>-->
-  <div [hidden]="!chart">
+<div>
+  <div [hidden]="!chartOptions">
     <div class="uk-child-width-1-2" uk-grid>
       <div>
         <h2>Dags för realisation</h2>
       </div>
-      <div>
-        <select class="uk-select">
-          <option>Rött vin</option>
+      <div *ngIf="statistics">
+        <select class="uk-select" (change)="onFilterChange($event.target.value)">
+          <option *ngFor="let varugrupp of statistics">{{varugrupp.type}}- ({{varugrupp.count}})</option>
         </select>
       </div>
     </div>
-    <canvas id="bubble-chart">{{ chart }}</canvas>
+    <div *ngIf="!loading">
+      <canvas id="bubble-chart">{{ chart }}</canvas>
+    </div>
   </div>
-  <!--
-  <div class="uk-card uk-card-primary" *ngIf="statistics.groupCount">
-    <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" label="Antal prissänkta artiklar" [results]="statistics.groupCount">
-    </ngx-charts-advanced-pie-chart>
-  </div>
-  <hr>
-  <dl class="uk-description-list uk-description-list-divider">
-    <dt>
-      <h3 class="description-value">{{statistics.articlesCount}}</h3>
-    </dt>
-    <dd>Det totala antalet artiklar i databasen</dd>
-    <dt>
-      <h3 class="description-value">{{statistics.reducedCount}}</h3>
-    </dt>
-    <dd>Det totala antalet prissänkta artiklar</dd>
-    <dt>
-      <h3 class="description-value">{{statistics.totalCostReduced | currency: 'SEK'}}</h3>
-    </dt>
-    <dd>Den totala prisskillnaden av samtliga prissänkta varor, dvs, summan du hade "sparat" om du hade köpt en av varje prissänkt
-      vara (det här är extremt ointressant).</dd>
-  </dl>-->
 </div>

@@ -10,14 +10,13 @@ import { CoreModule } from './core/core.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 
-import { FaqComponent } from './faq/faq.component';
+import { FaqModule } from './faq/faq.module'
 
 registerLocaleData(localeSe, 'sv');
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FaqComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +24,7 @@ registerLocaleData(localeSe, 'sv');
     CoreModule,
     HttpClientModule,
     AppRoutingModule,
+    FaqModule,
     LoginModule
   ],
   providers: [],

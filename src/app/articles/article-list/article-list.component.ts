@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-
-import { Article, ReducedResponse } from '../../core/models';
+import { Article } from '../../core/models';
 
 @Component({
   selector: 'app-article-list',
@@ -10,8 +9,10 @@ import { Article, ReducedResponse } from '../../core/models';
 export class ArticleListComponent implements OnInit {
   @Input() articles: Article[];
   @Input() filteringDate: string;
-  @Output() selected = new EventEmitter<Article>();
+  @Input() isBusy: boolean;
+  @Input() filteringVarugrupp: string;
   filteringTime;
+  constructor() {}
 
   ngOnInit() {
     this.filteringTime = new Date(this.filteringDate).getTime();
@@ -21,12 +22,15 @@ export class ArticleListComponent implements OnInit {
     return article.nr;
   }
 
+  checkBusy(event) {
+    if (this.isBusy) {
+      console.log('isBusy');
+      event.stopPropagation();
+    }
+  }
+
   isSoldOut(lastModified: string) {
     const articleTime = new Date(lastModified).getTime();
     return articleTime < this.filteringTime;
-  }
-
-  onSelect(article: Article) {
-    this.selected.emit(article);
   }
 }

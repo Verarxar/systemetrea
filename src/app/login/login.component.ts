@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { map, mergeMap, takeUntil } from 'rxjs/operators';
-import { UserProfileService } from '../core/user-profile.service';
-import { LoginService, TokenPayload } from './login.service';
+import { AuthService } from '../core/auth.service';
+import { TokenPayload } from '../core/models';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userProfileService: UserProfileService,
-    private loginService: LoginService) {
+    private authService: AuthService) {
     this.errorCount = -1;
     this.intermission = false;
   }
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(f) {
     if (!this.intermission) {
-      this.loginService.login(this.credentials)
+      this.authService.login(this.credentials)
         .pipe(
           mergeMap(loginResult => this.route.queryParams),
           map(qp => qp['redirectTo']),
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         )
         .subscribe((redirectTo) => {
           this.errorCount = -1;
-          if (this.userProfileService.isLoggedIn()) {
+          if (this.authService.authenticated) {
             const url = redirectTo ? [redirectTo] : ['/faq'];
             this.router.navigate(url);
           }

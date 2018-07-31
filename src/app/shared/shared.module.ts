@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CountdownComponent } from './countdown/countdown.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   imports: [
     CommonModule,
     NgSelectModule,
-    FormsModule,
-    NgxChartsModule
+    StarRatingModule.forRoot(),
+    FormsModule
   ],
   exports: [
     CommonModule,
     NgSelectModule,
+    StarRatingModule,
     FormsModule,
-    NgxChartsModule,
     CountdownComponent
   ],
   declarations: [CountdownComponent]

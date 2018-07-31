@@ -1,18 +1,18 @@
-<div *ngIf="isLoggedIn()" uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #scrollup-dropdown">
+<div *ngIf="loggedIn" uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #scrollup-dropdown">
     <div class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <div>
                 <ul class="uk-navbar-nav">
                     <li>
-                        <a href="/dashboard" class="uk-navbar-item uk-logo"><img src="/assets/images/logo2.png" /></a>
+                        <a routerLink="/" class="uk-navbar-item uk-logo"><img src="/assets/images/logo2.png" /></a>
                     </li>
-                    <li *ngIf="isLoggedIn()">
-                        <a href="/dashboard">Trends</a>
+                    <li>
+                        <a routerLink="/trends">Trends</a>
                     </li>
-                    <li *ngIf="isLoggedIn()">
+                    <li>
                         <a routerLink="/articles">Articles</a>
                     </li>
-                    <li *ngIf="isLoggedIn()">
+                    <li>
                         <a routerLink="/faq">FAQ</a>
                     </li>
                 </ul>
@@ -21,17 +21,12 @@
         <div class="uk-navbar-right">
             <div>
                 <ul class="uk-navbar-nav">
-                    <li *ngIf="!isLoggedIn()">
-                        <a routerLink="/login" class="btn-login">
-                            Login
-                        </a>
-                    </li>
-                    <li *ngIf="isAdmin()">
+                    <li *ngIf="isAdmin">
                         <a routerLink="/admin">
                             Admin
                         </a>
                     </li>
-                    <li *ngIf="isLoggedIn()">
+                    <li>
                         <a class="uk-navbar-toggle" href="#profile" uk-toggle><span class="" uk-icon="icon: more"></span></a>
                     </li>
                 </ul>
@@ -40,7 +35,7 @@
     </div>
 </div>
 
-<div id="profile" uk-offcanvas="mode: reveal; overlay: true; flip: true">
+<div id="profile" *ngIf="loggedIn" uk-offcanvas="mode: reveal; overlay: true; flip: true">
     <div class="uk-offcanvas-bar profile">
 
         <button class="uk-offcanvas-close" type="button" uk-close></button>
@@ -50,8 +45,8 @@
         </div>
 
         <div class="profile-info">
-            <h4>Per Johansson</h4>
-            <div>mailtoper@gmail.com</div>
+            <h4>{{profile.name}}</h4>
+            <div>{{profile.email}}</div>
 
         <button *ngIf="isLoggedIn()" (click)="logout()" class="uk-button uk-button-primary uk-margin">
             Logout

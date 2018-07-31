@@ -4,9 +4,9 @@ import { AuthGuard } from './core/auth.guard';
 import { FaqComponent } from './faq/faq.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'trends' },
   {
-    path: 'dashboard',
+    path: 'trends',
     loadChildren: './dashboard/dashboard.module#DashboardModule',
     canActivate: [AuthGuard]
   },

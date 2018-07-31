@@ -1,10 +1,9 @@
 <div>
   <main>
-    <div *ngIf="dates">
-
-      <div class="uk-card uk-card-small uk-card-primary uk-card-body" *ngIf="articlesData">
+    <div *ngIf="dates && selectedDate">
+      <div class="uk-card uk-card-small uk-card-primary uk-card-body">
         <div class="uk-float-right">
-          <ng-select class="date-select" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onChange($event)">
+          <ng-select class="date-select" [items]="dates" [(ngModel)]="selectedDate" [clearable]="false" bindLabel="label" (change)="onDateChange($event)">
             <ng-template ng-label-tmp let-item="item">
               <i class="fal fa-calendar-alt"></i> {{item.date | date}}
             </ng-template>
@@ -17,19 +16,30 @@
         <h3 class="uk-card-title uk-margin-remove-top">{{selectedDate.date | date}}
           <span class="uk-label">{{selectedDate.count}} articles</span>
         </h3>
-        <article>
+        <article *ngIf="categories">
           <ul class="uk-list uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-child-width-1-5@xl" uk-grid>
-            <li *ngFor="let category of articlesData.categories">
-              {{category.name}} <strong>({{category.count}})</strong>
+            <li *ngFor="let category of categories">
+              <a (click)="onTypeChange(category.name)">{{category.name}} <strong>({{category.count}})</strong></a>
             </li>
           </ul>
         </article>
       </div>
+      <div *ngIf="filters" class="filter-wrapper">
+        <strong>Filtrerar: </strong>
+        <button *ngIf="filters.type" class="uk-button filter-item" type="button" (click)="onTypeChange(null)">
+          {{filters.type}} <span uk-icon="close"></span>
+        </button>
+        <button class="uk-button filter-item" type="button" disabled>
+          Datum: {{filters.date | date}}
+        </button>
+      </div>
     </div>
-    <app-article-list *ngIf="articles" [articles]="articles" [filteringDate]="this.params.date">
+    <app-article-list *ngIf="articles" [articles]="articles" [isBusy]="isBusy" [filteringVarugrupp]="this.filters.type" [filteringDate]="lastUpdatedDate">
     </app-article-list>
+    <h3 *ngIf="!hasMore">Slut på artiklar</h3>
     <div *ngIf="isBusy" class="uk-flex uk-flex-center">
       <div uk-spinner="ratio: 2"></div>
     </div>
   </main>
 </div>
+<app-article-modal></app-article-modal>

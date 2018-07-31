@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError as observableThrowError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -35,7 +35,7 @@ export class ArticleService {
 
   getStatistics() {
     console.log('this.apiBase: ', this.apiBase);
-    return this.http.get(`${this.apiBase}/api/statistics`);
+    return this.http.get(`${this.apiBase}/api/articles/statistics`);
   }
 
   private handleError(res: HttpErrorResponse) {

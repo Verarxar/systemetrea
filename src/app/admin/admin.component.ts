@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SpinnerService, UserProfileService } from '../core';
+import { SpinnerService, AuthService } from '../core';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { TokenResponse } from '../core/models';
 
-interface TokenResponse {
-  token: string;
-}
 class Credentials {
   name: string;
   email: string;
@@ -31,7 +29,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService,
-    private userProfileService: UserProfileService
+    private authService: AuthService
   ) {
     this.success = false;
     this.apiBase = environment.apiBase;

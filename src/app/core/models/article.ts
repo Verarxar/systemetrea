@@ -3,13 +3,17 @@ class PriceHistoryItem {
   pris: number;
   datum: string;
 }
-
+export interface ArticleTypeCount {
+  name: string;
+  count: number;
+}
 export class Article {
   nr: string;
   artikelid: String;
   varnummer: String;
   namn: String;
   namn2: String;
+  tidigarePris: Number;
   prisinklmoms: Number;
   prissanktProcent: Number;
   prisHistorik: Array<PriceHistoryItem>;

@@ -7,7 +7,7 @@ import {
   Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserProfileService } from './user-profile.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ import { UserProfileService } from './user-profile.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private userProfileService: UserProfileService,
+    private authService: AuthService,
     private router: Router) { }
   /**
    * used to prevent unauthorized users from accessing certain routes. See docs for more info.
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.userProfileService.isLoggedIn()) {
+    if (this.authService.authenticated) {
       return true;
     }
     this.router.navigate(['/login'], {
@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
    *  used to prevent the application from loading entire modules lazily if the user is not authorized to do so.
    */
   canLoad(route: Route) {
-    if (this.userProfileService.isAdmin()) {
+    if (this.authService.isAdmin) {
       return true;
     }
     const url = `/${route.path}`;

@@ -1,0 +1,47 @@
+<div id="article-modal" class="uk-modal">
+  <div class="uk-modal-dialog uk-modal-body" *ngIf="article">
+    <button class="uk-modal-close-outside" type="button" uk-close></button>
+    <div class="uk-container uk-margin-top" *ngIf="article">
+      <ul class="uk-list">
+        <li class=""><a href="">{{article.varugrupp}}</a></li>
+        <li class="name">
+          {{article.namn}} <small>({{article.nr}})</small>
+        </li>
+        <li class="name2">{{article.namn2}} <small>({{article.argang}})</small></li>
+        <li class="region">{{article.ursprunglandnamn}}, <span>{{article.ursprung}}</span></li>
+
+        <li class="price">{{article.prisinklmoms}}:- <small>(<i class="fas fa-caret-down"></i>{{article.prissanktProcent}})%</small></li>
+        <!--<li class="">prisPerLiter: {{article.prisPerLiter}}</li>-->
+
+        <div uk-grid>
+          <li class="norm uk-width-1-2"><span>Alkoholhalt</span><br>{{article.alkoholhalt}}</li>
+          <li class="norm uk-width-1-2"><span>Flaska</span><br>{{article.volymiml}}ml)</li>
+        </div>
+
+        <div uk-grid>
+          <li class="norm uk-width-1-2"><span>Förpackning</span><br>{{article.forpackning}}</li>
+          <li class="norm uk-width-1-2"><span>Producent</span><br>{{article.producent}}</li>
+          <li class="norm uk-width-1-2"><span>Ekologisk</span><br>{{article.ekologisk ? 'Ja' : 'Nej'}}</li>
+          <li class="norm uk-width-1-2"><span>Provad årgång:</span><br>{{article.provadargang ? article.provadargang : 'Ej provad'}}</li>
+          <li class="norm uk-width-1-2">
+              <span>Länk:</span><br>
+            <a target="_blank" href="https://www.systembolaget.se/sok-dryck/?searchquery={{article.nr}}"><img class="btn-systemet" src="/assets/images/systemet-logo.png" /></a>
+          </li>
+          <li class="norm" uk-width-1-2><span>Prishistorik</span><br>
+            <ul>
+              <li *ngFor="let reduction of article.prisHistorik">
+                <i>{{reduction.datum | date}}:</i>
+                <strong> {{reduction.pris}} kr</strong>
+              </li>
+            </ul>
+          </li>
+        </div>
+        <div uk-grid>
+          <li class="norm" uk-width-1-2>
+            <star-rating [hoverEnabled]="true" (ratingChange)="onRatingChange($event)" [starType]="'svg'" [rating]="article.rating || 0"></star-rating>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
